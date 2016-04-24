@@ -43,13 +43,7 @@ public class CheckLogin extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		UserDAO userDAO = new UserDAO();
-		if(userDAO.checkUserLogin("vietnhut", "vietnhut")){
-			out.println("Đăng nhập thành công");
-		}else{
-			out.print("Sai mật khẩu hoặc username");
-		}
+		
 	}
 
 }

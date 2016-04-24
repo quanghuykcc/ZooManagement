@@ -33,6 +33,14 @@
             <td><input type="checkbox" id="sex" name="sex" value="1" class="form-control"></input>Cái (*)</td>
           </tr>
           <tr>
+            <td><label for="weight"></label>Cân nặng</td>
+            <td><input type="text" id="weight" name="weight" class="form-control"></input></td>
+          </tr>
+          <tr>
+            <td><label for="height"></label>Chiều cao</td>
+            <td><input type="text" id="height" name="height" class="form-control"></input></td>
+          </tr>
+          <tr>
             <td><label for="select-helth">Sức khỏe</label></td>
             <td><select id="select-health" name="select-health" class="form-control">
                 <option value="khoe-manh">Khỏe mạnh</option>

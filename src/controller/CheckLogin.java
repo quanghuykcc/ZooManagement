@@ -58,7 +58,7 @@ public class CheckLogin extends HttpServlet {
 			if(userDAO.checkUserLogin(username, password)){
 				out.println("Đăng nhập thành công !");
 			}else{
-				response.sendRedirect(request.getContextPath()+"/checklogin?msg=0");
+				response.sendRedirect(request.getContextPath()+"/dang-nhap.jsp?msg=0");
 			}
 		}
 	}

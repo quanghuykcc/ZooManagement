@@ -85,6 +85,15 @@ public class User {
 		this.phone = phone;
 		this.address = address;
 	}
+	public User(String employeeName, int gender, String birthday, String phone, String address) {
+		super();
+		EmployeeName = employeeName;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.address = address;
+	}
+	
 	
 	
 	

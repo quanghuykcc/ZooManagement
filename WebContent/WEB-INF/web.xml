@@ -9,7 +9,6 @@
     <servlet-name>CheckLogin</servlet-name>
     <url-pattern>/checklogin</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>AnimalMain</servlet-name>
     <servlet-class>controller.AnimalMain</servlet-class>
@@ -17,6 +16,14 @@
   <servlet-mapping>
     <servlet-name>AnimalMain</servlet-name>
     <url-pattern>/animal-management</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>EmployeeMain</servlet-name>
+    <servlet-class>controller.EmployeeMain</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeMain</servlet-name>
+    <url-pattern>/employee-management</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
 import model.User;
@@ -42,7 +43,7 @@ public class CheckLogin extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 		
 		UserDAO userDAO = new UserDAO();
 		
@@ -54,6 +55,7 @@ public class CheckLogin extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			User user =userDAO.checkUserLogin(username, password);
+			session.setAttribute("sUser", user);
 			if(user!=null){
 				response.sendRedirect(request.getContextPath()+"/animal-management");
 			}else{

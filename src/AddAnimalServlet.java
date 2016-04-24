@@ -40,6 +40,7 @@ public class AddAnimalServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String speciesID = request.getParameter("select-species");
 		String animalID = request.getParameter("txt_animal_id");
 		String animalName = request.getParameter("txt_animal_name");

@@ -17,7 +17,9 @@ public class ConnectDbLib {
 	// open connection
 	public Connection getConnectMySQL(){
 		try {
+			//Register the driver class
 			Class.forName("com.mysql.jdbc.Driver");
+			//Creating connection
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

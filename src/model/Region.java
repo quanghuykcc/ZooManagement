@@ -1,11 +1,17 @@
 package model;
 
 public class Region {
-	String regionID;
-	String regionName;
-	int regionStatusID;
-	double regionArea;
-	String description;
+	private String regionID;
+	private String regionName;
+	private int regionStatusID;
+	private double regionArea;
+	private String description;
+	private RegionStatus regionStatus;
+		
+	public Region() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getRegionID() {
 		return regionID;
 	}

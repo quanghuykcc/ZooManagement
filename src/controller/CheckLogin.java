@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.RegionDAO;
 import dao.UserDAO;
-import model.Region;
 import model.User;
 
 /**
@@ -55,8 +53,9 @@ public class CheckLogin extends HttpServlet {
 		}else{
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
-			if(userDAO.checkUserLogin(username, password)){
-				out.println("Đăng nhập thành công !");
+			User user =userDAO.checkUserLogin(username, password);
+			if(user!=null){
+				response.sendRedirect(request.getContextPath()+"/animal-management");
 			}else{
 				response.sendRedirect(request.getContextPath()+"/dang-nhap.jsp?msg=0");
 			}

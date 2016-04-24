@@ -12,24 +12,53 @@ public class Animal {
 	private String description;
 	private String cellID;
 	private Cell cell;
+	private String regionName;
+	private String regionID;
 	
-		
-	
-	public Animal(String animalID, String animalName, String speciesID, Species species, boolean gender, double height,
-			double weight, String healthStatus, String description, String cellID, Cell cell) {
+	public Animal(String animalID, String animalName, String speciesID, boolean gender, double height, double weight,
+			String healthStatus, String description, String cellID, String regionName, String regionID) {
 		super();
 		this.animalID = animalID;
 		this.animalName = animalName;
 		this.speciesID = speciesID;
-		this.species = species;
 		this.gender = gender;
 		this.height = height;
 		this.weight = weight;
 		this.healthStatus = healthStatus;
 		this.description = description;
 		this.cellID = cellID;
-		this.cell = cell;
+		this.regionName = regionName;
+		this.regionID = regionID;
 	}
+
+	
+
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+
+
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+
+
+
+	public String getRegionID() {
+		return regionID;
+	}
+
+
+
+
+	public void setRegionID(String regionID) {
+		this.regionID = regionID;
+	}
+
 
 
 

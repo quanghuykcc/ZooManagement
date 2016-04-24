@@ -45,16 +45,6 @@
 				});
 			});
 			</script>
-	<%
-			String mgs = request.getParameter("msg");
-			if("0".equals(mgs)){
-		%>
-		<p style="color:red;font-weight: bold;">Sai username hoặc password</p>
-		<%}
-			if("1".equals(mgs)){
-				%>
-		<p style="color:red;font-weight: bold;">Đăng nhập thành công</p>
-		<%	}%>
   <form method="POST" action="<%=request.getContextPath()%>/checklogin" id="frm-login">
   <fieldset>
   <legend>Thông tin đăng nhập</legend>
@@ -63,8 +53,14 @@
     Mật khẩu:<br>
     <input type="password" name="password"><br>
     <a href="#">Quên mật khẩu</a><br>
-    <input type="submit" value="Đăng nhập">
+    <input type="submit" value="Đăng nhập" name="submit">
     <input type="button" value="Đăng kí">
+    <%
+			String mgs = request.getParameter("msg");
+			if("0".equals(mgs)){
+		%>
+		<p style="color:red;">Sai username hoặc password</p>
+		<%}%>
     </fieldset>
   </form>
 </body>

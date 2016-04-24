@@ -2,16 +2,18 @@ package controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import dao.UserDAO;
-
+import model.User;
+=======
+>>>>>>> 178bcfa47c6dd03c590e4186c746d2bee78a0ad9
 
 /**
  * Servlet implementation class CheckLogin
@@ -42,7 +44,7 @@ public class CheckLogin extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 		
 		UserDAO userDAO = new UserDAO();
 		
@@ -53,10 +55,12 @@ public class CheckLogin extends HttpServlet {
 		}else{
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
-			if(userDAO.checkUserLogin(username, password)){
-				out.println("Ä�Äƒng nháº­p thÃ nh cÃ´ng !");
+			User user =userDAO.checkUserLogin(username, password);
+			session.setAttribute("sUser", user);
+			if(user!=null){
+				response.sendRedirect(request.getContextPath()+"/animal-management");
 			}else{
-				response.sendRedirect(request.getContextPath()+"/checklogin?msg=0");
+				response.sendRedirect(request.getContextPath()+"/dang-nhap.jsp?msg=0");
 			}
 		}
 	}

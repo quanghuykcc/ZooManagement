@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.RegionDAO;
+import dao.UserDAO;
 import model.Region;
+import model.User;
 
 /**
  * Servlet implementation class CheckLogin
@@ -38,10 +40,16 @@ public class CheckLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RegionDAO regionDAO = new RegionDAO();
-		Region region = regionDAO.getRegionById("KV01");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print(region.toString());
+		UserDAO userDAO = new UserDAO();
+		if(userDAO.checkUserLogin("vietnhut", "vietnhut")){
+			out.println("Đăng nhập thành công");
+		}else{
+			out.print("Sai mật khẩu hoặc username");
+		}
 	}
 
 }

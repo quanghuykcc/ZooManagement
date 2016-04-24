@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
   <meta charset="UTF-8">
+  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
   <title></title>
   <style type="text/css">
   body{
@@ -17,7 +18,44 @@
 </head>
 <body>
   <h3 style="text-align: center;">CHƯƠNG TRÌNH QUẢN LÝ SỞ THÚ</h3>
-  <form method="POST">
+   <script type="text/javascript">
+			$(document).ready(function(){
+				jQuery.validator.setDefaults({
+					  success: "valid"
+				});
+				$("#frm-login").validate({
+					ignore : [],
+					debug : false,
+					rules: {
+						username: {
+							required: true,
+						},
+						password: {
+							required: true,
+						},
+					},
+					messages: {
+						username: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						password: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+					}
+				});
+			});
+			</script>
+	<%
+			String mgs = request.getParameter("msg");
+			if("0".equals(mgs)){
+		%>
+		<p style="color:red;font-weight: bold;">Sai username hoặc password</p>
+		<%}
+			if("1".equals(mgs)){
+				%>
+		<p style="color:red;font-weight: bold;">Đăng nhập thành công</p>
+		<%	}%>
+  <form method="POST" action="<%=request.getContextPath()%>/checklogin" id="frm-login">
   <fieldset>
   <legend>Thông tin đăng nhập</legend>
     Tên đăng nhập:<br>
@@ -26,7 +64,7 @@
     <input type="password" name="password"><br>
     <a href="#">Quên mật khẩu</a><br>
     <input type="submit" value="Đăng nhập">
-    <input type="submit" value="Đăng kí">
+    <input type="button" value="Đăng kí">
     </fieldset>
   </form>
 </body>

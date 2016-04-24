@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import lib.ConnectDbLib;
+import model.User;
 
 public class UserDAO {
 	Connection con;
@@ -12,17 +13,18 @@ public class UserDAO {
 	PreparedStatement pst;
 	ResultSet rs;
 	
-	public boolean checkUserLogin(String username,String password){
+	public User checkUserLogin(String username,String password){
 		boolean result=false;
+		User user=null;
 		try{
 			con = ConLib.getConnectMySQL();
-			String sql = "SELECT * FROM user WHERE username LIKE ? AND password LIKE ? LIMIT 1";
+			String sql = "SELECT * FROM user as u join user_type as ut ON u.UserTypeID = ut.UserTypeID join employee as e ON u.Username LIKE e.Username WHERE u.Username LIKE ? AND u.Password LIKE ? LIMIT 1";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, username);
 			pst.setString(2, password);
 			rs = pst.executeQuery();
 			if(rs.next()){
-				result = true;
+				user = new User(rs.getString("Username"), rs.getString("Password"), rs.getInt("UserTypeID"), rs.getString("UserTypeName"), rs.getString("EmployeeID"), rs.getString("EmployeeName"), rs.getInt("Gender"),rs.getString("Birthday"), rs.getString("Phone"), rs.getString("Address"));
 			}
 		}catch(Exception e){
 			System.out.println("Lỗi cmnr");
@@ -36,6 +38,6 @@ public class UserDAO {
 			}
 		}
 		
-		return result;
+		return user;
 	}
 }

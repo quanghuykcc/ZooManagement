@@ -71,6 +71,21 @@ public class Cell {
 				+ ", cellStatus=" + cellStatus + ", description=" + description + "]";
 	}
 	
+	
+	
+	
+	public Cell(String cellID, String cellName, String regionID, String speciesID, int capacity, int cellStatusID,
+			String description) {
+		super();
+		this.cellID = cellID;
+		this.cellName = cellName;
+		this.regionID = regionID;
+		this.speciesID = speciesID;
+		this.capacity = capacity;
+		this.cellStatusID = cellStatusID;
+		this.description = description;
+	}
+	
 	public Cell(String cellID, String cellName, String regionID, String speciesID, int capacity, int cellStatusID,
 			CellStatus cellStatus, String description) {
 		super();

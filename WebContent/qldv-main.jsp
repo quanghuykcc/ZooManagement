@@ -10,14 +10,16 @@
       border: 1px solid black;
       border-collapse: collapse;
     }
-    /*#navitication {
-      float: left;
-      width: 25%;
+    table {
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
-    #animal-filter {
-      float: right;
-      width: 70%;
-    }*/
+    #form-filter {
+        float: left;
+    }
+    #add-btn {
+        float: right;
+    }
   </style>
   <title>Quản lý động vật</title>
 </head>
@@ -48,21 +50,28 @@
     </div>
     <div id="animal-filter" class="col-md-8">
       <div id="filter">
-        <select name="region">
-          <option value="volvo">Volvo</option>
-        </select>
-        <select name="cell">
-          <option value="volvo">Volvo</option>
-        </select>
-        <select name="species">
-          <option value="volvo">Volvo</option>
-        </select>
-        <input type="text" name="animal-name">
-        <input type="button" class="btn btn-default" name="search" value="Search"></input>
+        <div id="form-filter">
+        <form class="form-inline" role="form" action="index.html" method="post">
+            <div class="from-group">
+                <select name="region" class="form-control">
+                  <option disabled="disable">Chọn khu vực</option>
+                  <option>A</option>
+                </select>
+                <select name="cell" class="form-control">
+                  <option disabled="disable" selected="selected">Chọn chuồng</option>
+                </select>
+                <select name="species" class="form-control">
+                  <option disabled="disable" selected="selected">Chọn loài</option>
+                </select>
+                <input type="text" name="animal-name" class="form-control">
+                <input type="button" class="btn btn-default" name="search" value="Search"></input>
+            </div>
+        </form>
+        </div>
+        <div id="add-btn"><input type="button" class="btn btn-default" name="add" value="Add"></input></div>
       </div>
-      <input type="button" name="add" value="Add"></input>
       <br>
-      <table id="animal-info" style="width:100%; border: 1px">
+      <table id="animal-info" class="table-bordered" style="width: 100%">
         <tr>
           <th>Mã ĐV</th>
           <th>Tên động vật</th>

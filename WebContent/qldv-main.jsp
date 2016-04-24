@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -73,6 +75,9 @@
           <td>Jill</td>
           <td>Smith</td>
           <td>50</td>
+          <td>KV01</td>
+          <td>C002</td>
+          <td>Good</td>
         </tr>
       </table>
     </div>

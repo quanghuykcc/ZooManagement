@@ -1,13 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Chỉnh sửa động vật</title>
+  <title>Thêm động vật</title>
 </head>
 <body>
   <form method="POST">
   <fieldset>
-    <legend>Cập nhật động vật</legend>
+    <legend>Thêm động vật</legend>
       <table id="animal-info" style="width:100%; border: 1px">
         <tr>
           <td>Loài</td>
@@ -56,8 +58,8 @@
           </select></td>
         </tr>
       </table>
-      <input type="button" name="delete" value="Xóa động vật">
-      <input type="button" name="save" value="Lưu">
+      <input type="button" name="erase" value="Xóa hết">
+      <input type="button" name="add" value="Thêm">
       <input type="button" name="cancel" value="Hủy">
   </fieldset>
   </form>

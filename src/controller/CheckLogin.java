@@ -2,11 +2,15 @@ package controller;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.UserDAO;
 
 
 /**
@@ -50,7 +54,7 @@ public class CheckLogin extends HttpServlet {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			if(userDAO.checkUserLogin(username, password)){
-				out.println("Đăng nhập thành công !");
+				out.println("Ä�Äƒng nháº­p thÃ nh cÃ´ng !");
 			}else{
 				response.sendRedirect(request.getContextPath()+"/checklogin?msg=0");
 			}

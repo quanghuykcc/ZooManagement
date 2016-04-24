@@ -8,7 +8,7 @@
   <title>Thêm động vật</title>
 </head>
 <body>
-    <form method="POST">
+  <form method="POST" action="<%=request.getContextPath()%>/AddAnimalServlet">
     <fieldset>
       <legend>Thêm động vật</legend>
         <table id="animal-info" style="width:100%; border: 1px">

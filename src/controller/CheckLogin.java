@@ -2,8 +2,6 @@ package controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import dao.UserDAO;
 import model.User;
+=======
+>>>>>>> 178bcfa47c6dd03c590e4186c746d2bee78a0ad9
 
 /**
  * Servlet implementation class CheckLogin

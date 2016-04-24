@@ -9,16 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-<<<<<<< HEAD
 import dao.UserDAO;
 import model.User;
-=======
->>>>>>> 178bcfa47c6dd03c590e4186c746d2bee78a0ad9
 
 /**
  * Servlet implementation class CheckLogin
  */
-@WebServlet("/CheckLogin")
 public class CheckLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

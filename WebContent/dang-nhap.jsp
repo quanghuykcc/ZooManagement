@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -7,6 +9,9 @@
   body{
     width: 400px;
     margin: 20px auto;
+  }
+  input{
+  	margin-top: 10px;
   }
   </style>
 </head>
@@ -18,7 +23,7 @@
     Tên đăng nhập:<br>
     <input type="text" name="username"><br>
     Mật khẩu:<br>
-    <input type="password" name="passwd"><br>
+    <input type="password" name="password"><br>
     <a href="#">Quên mật khẩu</a><br>
     <input type="submit" value="Đăng nhập">
     <input type="submit" value="Đăng kí">

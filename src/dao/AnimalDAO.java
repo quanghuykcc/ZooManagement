@@ -75,27 +75,26 @@ public class AnimalDAO extends AbstractDAO {
 		return ok;
 	}
 	
-	/*	
-	public ArrayList<Animal> searchAnimalById(String id) {
-		ArrayList<E> animal = null;
+	public ArrayList<Animal> getAllAnimals() {
+		ArrayList<Animal> animalList = new ArrayList<Animal>();
 		try {		
 			connection =  dbAccess.getConnectMySQL();
-			String sql = "SELECT * FROM animal an JOIN cell cl ON an.CellID = cl.CellID JOIN region rg ON cl.RegionID = rg.RegionID WHERE AnimalID LIKE ?";
+			String sql = "SELECT * FROM animal an JOIN cell cl ON an.CellID = cl.CellID JOIN region rg ON cl.RegionID = rg.RegionID";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, id);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Animal animal = new Animal(resultSet.getString("AnimalID"),
-						animalName,
-						speciesID,
-						gender,
-						height,
-						weight,
-						healthStatus,
-						description,
-						cellID,
-						regionName,
-						regionID);	
+						resultSet.getString("AnimalName"),
+						resultSet.getString("SpeciesID"),
+						resultSet.getBoolean("Gender"),
+						resultSet.getDouble("Height"),
+						resultSet.getDouble("Weight"),
+						resultSet.getString("HealthStatus"),
+						resultSet.getString("Description"),
+						resultSet.getString("CellID"),
+						resultSet.getString("RegionName"),
+						resultSet.getString("RegionID"));
+				animalList.add(animal);
 			}
 			
 		}
@@ -112,9 +111,51 @@ public class AnimalDAO extends AbstractDAO {
 				
 			}
 		}
-		return region;
+		
+		return animalList;
 	}
-	*/
+	
+	public ArrayList<Animal> searchAnimalById(String id) {
+		ArrayList<Animal> animalList = new ArrayList<Animal>();
+		try {		
+			connection =  dbAccess.getConnectMySQL();
+			String sql = "SELECT * FROM animal an JOIN cell cl ON an.CellID = cl.CellID JOIN region rg ON cl.RegionID = rg.RegionID WHERE AnimalID LIKE ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, id);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Animal animal = new Animal(resultSet.getString("AnimalID"),
+						resultSet.getString("AnimalName"),
+						resultSet.getString("SpeciesID"),
+						resultSet.getBoolean("Gender"),
+						resultSet.getDouble("Height"),
+						resultSet.getDouble("Weight"),
+						resultSet.getString("HealthStatus"),
+						resultSet.getString("Description"),
+						resultSet.getString("CellID"),
+						resultSet.getString("RegionName"),
+						resultSet.getString("RegionID"));
+				animalList.add(animal);
+			}
+			
+		}
+		catch (Exception ex) {
+			
+		}
+		finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			}
+			catch (Exception ex) {
+				
+			}
+		}
+		
+		return animalList;
+	}
+	
 	public boolean addNewAnimal(Animal newAnimal) {
 		boolean ok = false;
 		try {		

@@ -1,3 +1,4 @@
+package controller;
 
 
 import java.io.IOException;
@@ -43,7 +44,23 @@ public class CheckLogin extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 		
+		UserDAO userDAO = new UserDAO();
+		
+		String submit = request.getParameter("submit");
+		
+		if(submit==null){
+			response.sendRedirect(request.getContextPath()+"/dang-nhap.jsp");
+		}else{
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			if(userDAO.checkUserLogin(username, password)){
+				out.println("Đăng nhập thành công !");
+			}else{
+				response.sendRedirect(request.getContextPath()+"/checklogin?msg=0");
+			}
+		}
 	}
 
 }

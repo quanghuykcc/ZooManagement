@@ -1,11 +1,16 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.AnimalDAO;
+import model.Animal;
 
 /**
  * Servlet implementation class AnimalMain
@@ -37,7 +42,12 @@ public class AnimalMain extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		response.sendRedirect(request.getContextPath()+"/qldv-main.jsp");
+		ArrayList<Animal> animalList = new AnimalDAO().getAllAnimals();
+		request.setAttribute("animal_list", animalList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("qldv-main.jsp");	
+		dispatcher.forward(request, response);
+		
+		
 	}
 
 }

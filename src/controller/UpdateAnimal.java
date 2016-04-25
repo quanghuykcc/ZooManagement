@@ -20,36 +20,31 @@ import model.Region;
 import model.Species;
 
 /**
- * Servlet implementation class AddAnimalServlet
+ * Servlet implementation class UpdateAnimal
  */
-@WebServlet("/AddAnimalServlet")
-public class AddAnimalServlet extends HttpServlet {
+@WebServlet("/UpdateAnimal")
+public class UpdateAnimal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateAnimal() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public AddAnimalServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
@@ -72,9 +67,12 @@ public class AddAnimalServlet extends HttpServlet {
 			String healthStatus = request.getParameter("health_status");
 			String description = request.getParameter("description");
 			String cellID = request.getParameter("cell_id");
-
+			
 			Animal animal = new Animal(animalID, animalName, speciesID, gender, Double.parseDouble(height), Double.parseDouble(weight), healthStatus, description, cellID);
-			boolean ok = new AnimalDAO().addNewAnimal(animal);
+			
+			System.out.println(animal.toString());
+			
+			boolean ok = new AnimalDAO().updateAnimal(animal);
 			if (ok) {
 				response.sendRedirect(request.getContextPath() + "/animal-management");
 			}
@@ -85,17 +83,18 @@ public class AddAnimalServlet extends HttpServlet {
 		
 		else {
 			
+			String animalID = request.getParameter("animal_id");
+			Animal animal = new AnimalDAO().getAnimalById(animalID);
 			ArrayList<Species> speciesList = new SpeciesDAO().getAllSpecies();
 			ArrayList<Region> regionList = new RegionDAO().getAllRegions();
 			ArrayList<Cell> cellList = new CellDAO().getAllCells();
 			request.setAttribute("species_list", speciesList);
 			request.setAttribute("region_list", regionList);
 			request.setAttribute("cell_list", cellList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("add-animal.jsp");
+			request.setAttribute("animal", animal);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("edit-animal.jsp");
 			dispatcher.forward(request, response);
 		}
-		
 	}
-
 
 }

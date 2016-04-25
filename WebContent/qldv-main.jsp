@@ -1,9 +1,13 @@
+<%@page import="model.Animal"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <style>
     table, th, td {
@@ -68,7 +72,11 @@
             </div>
         </form>
         </div>
-        <div id="add-btn"><input type="button" class="btn btn-default" name="add" value="Add"></input></div>
+        <div id="add-btn">
+        	<a href=<%=request.getContextPath() + "/AddAnimalServlet" %>>
+        		<input type="button" class="btn btn-default" name="add" value="Add" onClick=""></input>
+        	</a>
+        </div>
       </div>
       <br>
       <table id="animal-info" class="table-bordered" style="width: 100%">
@@ -79,15 +87,24 @@
           <th>Khu vực</th>
           <th>Chuồng</th>
           <th>Sức khỏe</th>
+          <th></th>
         </tr>
+        <%
+        	ArrayList<Animal> animalList = (ArrayList<Animal>) request.getAttribute("animal_list");
+        	for (Animal animal : animalList) {
+        %>
         <tr>
-          <td>Jill</td>
-          <td>Smith</td>
-          <td>50</td>
-          <td>KV01</td>
-          <td>C002</td>
-          <td>Good</td>
+          <td><%=animal.getAnimalID()%></td>
+          <td><%=animal.getAnimalName()%></td>
+          <td><%=animal.getSpecies().getSpeciesName()%></td>
+          <td><%=animal.getRegionID()%></td>
+          <td><%=animal.getCellID()%></td>
+          <td><%=animal.getHealthStatus()%></td>
+          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button>Cập nhật</button></a></td>
         </tr>
+        <%
+        	}
+        %>
       </table>
     </div>
   </div>

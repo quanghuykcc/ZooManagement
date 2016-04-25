@@ -32,6 +32,7 @@
 						},
 						password: {
 							required: true,
+	
 						},
 					},
 					messages: {

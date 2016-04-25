@@ -64,4 +64,25 @@ public class UserDAO {
 			}
 		}
 	}
+	public void upadatePassword(User user){
+		con = ConLib.getConnectMySQL();
+		String sql = "UPDATE user SET Password = ? WHERE Username LIKE ?";
+		try{
+			pst = con.prepareStatement(sql);
+			pst.setString(1, user.getPassword());
+			pst.setString(2, user.getUsername());
+			pst.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try{
+				con.close();
+				pst.close();
+				ConLib.closeConnect();
+			}catch(Exception e){
+				
+			}
+		}
+	}
+	
 }

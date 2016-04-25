@@ -93,10 +93,10 @@ public class User {
 		this.phone = phone;
 		this.address = address;
 	}
-	
-	
-	
-	
-	
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 	
 }

@@ -15,6 +15,17 @@
 	input{
 		margin-top: 10px;
 	}
+	a{
+		text-decoration: none;
+		font-style: italic;
+		margin-left: 20px;
+	}
+	a:hover{
+		text-decoration: underline;
+	}
+	span{
+		margin-left: 10px;
+	}
 </style>
 </head>
 <body>
@@ -25,8 +36,8 @@
 	<form action="<%=request.getContextPath()%>/employee-management" method="POST">
 	<fieldset>
 	<legend style='color:'>Thông tin nhân viên</legend>
-		Tên đăng nhập: <%=user.getUsername() %><br/>
-		Chức năng:	<%=user.getUserTypeName()%>	<br/>
+		Tên đăng nhập: <span style="font-weight: bold;color:blue;"> <%=user.getUsername() %></span><br/>
+		Quyền quản trị:	<span style="font-weight: bold;color:blue;"> <%=user.getUserTypeName()%></span>	<br/>
 		Tên nhân viên<br>
 		<input type="text" name="employeename" value="<%=user.getEmployeeName()%>"><br/>
 		Giới tính<br/>
@@ -40,11 +51,12 @@
 		Ngày sinh<br/>
 		<input type="text" name="birthday" value="<%=user.getBirthday()%>"><br/>
 		Số điện thoại<br/>
-		<input type="text" name="phone" value="<%=user.getPhone()%>"><br/>
+		<input type="number" name="phone" value="<%=user.getPhone()%>"><br/>
 		Địa chỉ<br/>
 		<textarea rows="3" cols="40" name="address"><%=user.getAddress()%></textarea><br/>
 		<input type="submit" name="submit" value="Cập nhật">
 		<input type="button" name="quit" value="Thoát"/>
+		<span ><a href="<%=request.getContextPath()%>/change-pass">Thay đổi mật khấu ?</a></span>
 		</fieldset>
 	</form>
 	<%} %>

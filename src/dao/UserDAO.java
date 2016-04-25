@@ -14,7 +14,6 @@ public class UserDAO {
 	ResultSet rs;
 	
 	public User checkUserLogin(String username,String password){
-		boolean result=false;
 		User user=null;
 		try{
 			con = ConLib.getConnectMySQL();
@@ -40,4 +39,50 @@ public class UserDAO {
 		
 		return user;
 	}
+	
+	public void upadateUser(User user,String id){
+		con = ConLib.getConnectMySQL();
+		String sql = "UPDATE employee SET EmployeeName = ?, Gender=? , Birthday= ?, Phone=?, Address=? WHERE EmployeeID LIKE ?";
+		try{
+			pst = con.prepareStatement(sql);
+			pst.setString(1, user.getEmployeeName());
+			pst.setInt(2, user.getGender());
+			pst.setString(3, user.getBirthday());
+			pst.setString(4, user.getPhone());
+			pst.setString(5, user.getAddress());
+			pst.setString(6, id);
+			pst.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try{
+				con.close();
+				pst.close();
+				ConLib.closeConnect();
+			}catch(Exception e){
+				
+			}
+		}
+	}
+	public void upadatePassword(User user){
+		con = ConLib.getConnectMySQL();
+		String sql = "UPDATE user SET Password = ? WHERE Username LIKE ?";
+		try{
+			pst = con.prepareStatement(sql);
+			pst.setString(1, user.getPassword());
+			pst.setString(2, user.getUsername());
+			pst.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try{
+				con.close();
+				pst.close();
+				ConLib.closeConnect();
+			}catch(Exception e){
+				
+			}
+		}
+	}
+	
 }

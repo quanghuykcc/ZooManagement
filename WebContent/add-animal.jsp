@@ -84,6 +84,8 @@
   
   <meta charset="UTF-8">
   <title>Thêm động vật</title>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
+ <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
 </head>
 <body>
   <form method="POST" action="<%=request.getContextPath()%>/AddAnimalServlet" id="frm-add-animal">
@@ -105,7 +107,6 @@
             		
             %>
                 
-               
             </select>(*)</td>
           </tr>
           <tr>
@@ -174,5 +175,61 @@
       <a href=<%=request.getContextPath() + "/animal-management" %>><input type="button" class="btn btn-default" name="cancel" value="Hủy"></a>
   </fieldset>
   </form>
+  <script type="text/javascript">
+			$(document).ready(function(){
+				jQuery.validator.setDefaults({
+					  success: "valid"
+				});
+				$("#frm-changepass").validate({
+					ignore : [],
+					debug : false,
+					rules: {
+						animal_id: {
+							required: true,
+						},
+						animal_name: {
+							required: true,
+							minlength: 6,
+						},
+						weight: {
+							required: true,
+							
+						},
+						height: {
+							required: true,
+							
+						},
+						health_status: {
+							required: true,
+							
+						},
+						description: {
+							required: true,
+							
+						},
+					},
+					messages: {
+						animal_id: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						animal_name: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						weight: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						height: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						health_status: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						description: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+					}
+				});
+			});
+			</script>
 </body>
 </html>

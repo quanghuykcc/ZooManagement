@@ -45,7 +45,7 @@
             <li><a href="">Động vật</a></li>
           </ul>
         </li>
-        <li><a href="<%=request.getContextPath()%>/employee.jsp">Quản lý nhân viên</a>
+        <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>
         </li>
         <li><a href="">Quản lý thức ăn</a>
         </li>

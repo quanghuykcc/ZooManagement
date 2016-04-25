@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Quản lý nhân viên</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
+ <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
 <style>
 	body{
 		width:400px;
@@ -33,6 +35,50 @@
 		User user =(User) session.getAttribute("sUser");
 		if(user!=null){
 	%>
+	<script type="text/javascript">
+			$(document).ready(function(){
+				jQuery.validator.setDefaults({
+					  success: "valid"
+				});
+				$("#frm-changepass").validate({
+					ignore : [],
+					debug : false,
+					rules: {
+						employeename: {
+							required: true,
+							minlength: 10,
+						},
+						birthday: {
+							required: true,
+						},
+						phone: {
+							required: true,
+						},
+						address: {
+							required: true,
+							minlength: 20,
+						},
+					},
+					messages: {
+						employeename: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+							minlength: "<span style='color:red;'>Quá ngắn</span>",
+						},
+						birthday: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						phone: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+							
+						},
+						address: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+							minlength: "<span style='color:red;'>Quá ngắn</span>",
+						},
+					}
+				});
+			});
+			</script>
 	<form action="<%=request.getContextPath()%>/employee-management" method="POST">
 	<fieldset>
 	<legend style='color:'>Thông tin nhân viên</legend>

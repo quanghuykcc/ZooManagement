@@ -3,11 +3,11 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import lib.ConnectDbLib;
 import model.Animal;
 import model.Cell;
 import model.Region;
 import model.Species;
+import lib.ConnectDbLib;
 
 
 public class AnimalDAO extends AbstractDAO {
@@ -124,7 +124,7 @@ public class AnimalDAO extends AbstractDAO {
 		Animal animal = null;
 		try {		
 			connection =  dbAccess.getConnectMySQL();
-			String sql = "SELECT * FROM animal an LEFT JOIN cell cl ON an.CellID = cl.CellID LEFT JOIN region rg ON cl.RegionID = rg.RegionID WHERE AnimalID = ?";
+			String sql = "SELECT * FROM animal an LEFT JOIN cell cl ON an.CellID = cl.CellID LEFT JOIN region rg ON cl.RegionID = rg.RegionID LEFT JOIN species sc ON an.SpeciesID = sc.SpeciesID WHERE an.AnimalID = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			resultSet = preparedStatement.executeQuery();
@@ -140,6 +140,10 @@ public class AnimalDAO extends AbstractDAO {
 						resultSet.getString("CellID"),
 						resultSet.getString("RegionName"),
 						resultSet.getString("RegionID"));
+				Species species = new Species(resultSet.getString("SpeciesID"),
+						resultSet.getString("SpeciesName"),
+						resultSet.getString("Description"));
+				animal.setSpecies(species);
 				
 			}	
 		}
@@ -165,9 +169,9 @@ public class AnimalDAO extends AbstractDAO {
 		ArrayList<Animal> animalList = new ArrayList<Animal>();
 		try {		
 			connection =  dbAccess.getConnectMySQL();
-			String sql = "SELECT * FROM animal an JOIN cell cl ON an.CellID = cl.CellID JOIN region rg ON cl.RegionID = rg.RegionID WHERE AnimalID LIKE ?";
+			String sql = "SELECT * FROM animal an LEFT JOIN cell cl ON an.CellID = cl.CellID LEFT JOIN region rg ON cl.RegionID = rg.RegionID LEFT JOIN species sc ON an.SpeciesID = sc.SpeciesID WHERE an.AnimalID LIKE ?";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, id);
+			preparedStatement.setString(1, "%" + id + "%");
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Animal animal = new Animal(resultSet.getString("AnimalID"),
@@ -181,6 +185,10 @@ public class AnimalDAO extends AbstractDAO {
 						resultSet.getString("CellID"),
 						resultSet.getString("RegionName"),
 						resultSet.getString("RegionID"));
+				Species species = new Species(resultSet.getString("SpeciesID"),
+						resultSet.getString("SpeciesName"),
+						resultSet.getString("Description"));
+				animal.setSpecies(species);
 				animalList.add(animal);
 			}
 			

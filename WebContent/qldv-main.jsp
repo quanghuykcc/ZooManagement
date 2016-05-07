@@ -43,7 +43,7 @@
           <ul>
             <li><a href="#">Khu vực</a></li>
             <li><a href="#">Chuồng</a></li>
-            <li><a href="">Động vật</a></li>
+            <li><a href=<%=request.getContextPath() + "/animal-management" %>>Động vật</a></li>
           </ul>
         </li>
         <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>

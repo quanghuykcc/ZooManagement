@@ -96,9 +96,9 @@
             </select></td>
           </tr>
         </table>
-      <input type="button" class="btn btn-default" name="erase" value="Xóa hết">
-      <input type="submit" class="btn btn-default" name="submit" value="Thêm">
-      <input type="button" class="btn btn-default" name="cancel" value="Hủy">
+      <input type="button" class="btn btn-default btn-primary" name="erase" value="Xóa hết">
+      <input type="submit" class="btn btn-default btn-primary" name="submit" value="Thêm">
+      <input type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy">
   </fieldset>
   </form>
   <script type="text/javascript">

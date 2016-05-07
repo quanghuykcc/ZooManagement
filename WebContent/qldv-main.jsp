@@ -64,11 +64,11 @@
                   <option disabled="disable" selected="selected">Chọn loài</option>
                 </select>
                 <input type="text" name="animal-name" class="form-control">
-                <input type="button" class="btn btn-default" name="search" value="Search"></input>
+                <input type="button" class="btn btn-default btn-primary" name="search" value="Search"></input>
             </div>
         </form>
         </div>
-        <div id="add-btn"><input type="button" class="btn btn-default" name="add" value="Add"></input></div>
+        <div id="add-btn"><input type="button" class="btn btn-default btn-primary" name="add" value="Add"></input></div>
       </div>
       <br>
       <table id="animal-info" class="table-bordered" style="width: 100%">

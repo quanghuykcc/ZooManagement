@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
- <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
+<%@include file="/inc/header.jsp" %>
 <title>Change Pass User</title>
 <style type="text/css">
 	input{
@@ -59,15 +54,21 @@
 			</script>
   <form method="POST" action="<%=request.getContextPath()%>/change-pass" id="frm-changepass">
   <fieldset>
-  <legend>Đổi mật khẩu</legend>
+  <legend style="text-align: center;">Đổi mật khẩu</legend>
     Tên đăng nhập:<br>
-    Mật khẩu cũ:<br>
-    <input type="password" name="old_password"><br>
-    Mật khẩu mới:<br>
-    <input type="password" name="new_password" id="new_password"><br>
-    Xác nhận mật khẩu:<br>
-    <input type="password" name="comfirm_password"><br>
-    <input type="submit" value="Đăng nhập" name="submit">
+    <div class="form-group">
+    <label>Mật khẩu cũ:</label>
+    <input class="form-control" type="password" name="old_password">
+    </div>
+    <div class="form-group">
+    <label>Mật khẩu mới:</label>
+    <input class="form-control" type="password" name="new_password" id="new_password">
+    </div>
+    <div class="form-group">
+    <label>Xác nhận mật khẩu:</label>
+    <input class="form-control" type="password" name="comfirm_password">
+    </div>
+    <input type="submit" value="Đăng nhập" name="submit" class="btn btn-default btn-primary">
     </fieldset>
     </form>
 </body>

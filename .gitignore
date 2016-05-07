@@ -4,3 +4,7 @@ build/
 .classpath
 .project
 .settings/
+/nbproject
+lib/
+build.xml
+

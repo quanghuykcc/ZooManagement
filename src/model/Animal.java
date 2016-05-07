@@ -5,7 +5,7 @@ public class Animal {
 	private String animalName;
 	private String speciesID;
 	private Species species;
-	private boolean gender;
+	private int gender;
 	private double height;
 	private double weight;
 	private String healthStatus;
@@ -15,7 +15,7 @@ public class Animal {
 	private String regionName;
 	private String regionID;
 	
-	public Animal(String animalID, String animalName, String speciesID, boolean gender, double height, double weight,
+	public Animal(String animalID, String animalName, String speciesID, int gender, double height, double weight,
 			String healthStatus, String description, String cellID, String regionName, String regionID) {
 		super();
 		this.animalID = animalID;
@@ -34,7 +34,7 @@ public class Animal {
 	
 
 
-	public Animal(String animalID, String animalName, String speciesID, boolean gender, double height, double weight,
+	public Animal(String animalID, String animalName, String speciesID, int gender, double height, double weight,
 			String healthStatus, String description, String cellID) {
 		super();
 		this.animalID = animalID;
@@ -90,16 +90,21 @@ public class Animal {
 	}
 
 
-
+	
+	
+	
+	
 	@Override
 	public String toString() {
-		return "Animal [animalID=" + animalID + ", animalName=" + animalName + ", species=" + species + ", gender="
-				+ gender + ", height=" + height + ", weight=" + weight + ", healthStatus=" + healthStatus
-				+ ", description=" + description + ", cell=" + cell + "]";
+		return "Animal [animalID=" + animalID + ", animalName=" + animalName + ", speciesID=" + speciesID + ", species="
+				+ species + ", gender=" + gender + ", height=" + height + ", weight=" + weight + ", healthStatus="
+				+ healthStatus + ", description=" + description + ", cellID=" + cellID + ", cell=" + cell
+				+ ", regionName=" + regionName + ", regionID=" + regionID + "]";
 	}
-	
-	
-	
+
+
+
+
 	public String getSpeciesID() {
 		return speciesID;
 	}
@@ -124,12 +129,23 @@ public class Animal {
 	public void setSpecies(Species species) {
 		this.species = species;
 	}
-	public boolean getGender() {
+	
+	
+	
+	public int getGender() {
 		return gender;
 	}
-	public void setGender(boolean gender) {
+
+
+	
+
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
+
+
+
+
 	public double getHeight() {
 		return height;
 	}

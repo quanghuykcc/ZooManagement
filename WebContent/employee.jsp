@@ -3,10 +3,6 @@
 	pageEncoding="utf-8"%>
 <%@include file="/inc/header.jsp"%>
 <title>Quản lý nhân viên</title>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js"></script>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/lib/jquery.validate.js"></script>
 <style>
 body {
 	width: 400px;
@@ -91,7 +87,7 @@ span {
 		<fieldset>
 			<legend style='color:'>Thông tin nhân viên</legend>
 			Tên đăng nhập: <span style="font-weight: bold; color: blue;">
-				<%=user.getUsername()%></span><br/> Quyền quản trị: <span
+				<%=user.getUsername()%></span><br> Quyền quản trị: <span
 				style="font-weight: bold; color: blue;"> <%=user.getUserTypeName()%></span>
 			<br />
 			<div class="form-group">

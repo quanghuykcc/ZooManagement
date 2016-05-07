@@ -28,6 +28,7 @@
 						},
 						password: {
 							required: true,
+	
 						},
 					},
 					messages: {

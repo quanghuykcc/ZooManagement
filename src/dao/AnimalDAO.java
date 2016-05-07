@@ -7,6 +7,7 @@ import lib.ConnectDbLib;
 import model.Animal;
 import model.Cell;
 import model.Region;
+import model.Species;
 
 
 public class AnimalDAO extends AbstractDAO {
@@ -49,7 +50,7 @@ public class AnimalDAO extends AbstractDAO {
 			preparedStatement = connection.prepareStatement(sql);			
 			preparedStatement.setString(1, updatedAnimal.getAnimalName());
 			preparedStatement.setString(2, updatedAnimal.getSpeciesID());
-			preparedStatement.setBoolean(3, updatedAnimal.getGender());
+			preparedStatement.setInt(3, updatedAnimal.getGender());
 			preparedStatement.setDouble(4, updatedAnimal.getWeight());
 			preparedStatement.setDouble(5, updatedAnimal.getHeight());
 			preparedStatement.setString(6, updatedAnimal.getHealthStatus());
@@ -79,14 +80,14 @@ public class AnimalDAO extends AbstractDAO {
 		ArrayList<Animal> animalList = new ArrayList<Animal>();
 		try {		
 			connection =  dbAccess.getConnectMySQL();
-			String sql = "SELECT * FROM animal an JOIN cell cl ON an.CellID = cl.CellID JOIN region rg ON cl.RegionID = rg.RegionID";
+			String sql = "SELECT * FROM animal an LEFT JOIN cell cl ON an.CellID = cl.CellID LEFT JOIN region rg ON cl.RegionID = rg.RegionID LEFT JOIN species sc ON an.SpeciesID = sc.SpeciesID";
 			preparedStatement = connection.prepareStatement(sql);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Animal animal = new Animal(resultSet.getString("AnimalID"),
 						resultSet.getString("AnimalName"),
 						resultSet.getString("SpeciesID"),
-						resultSet.getBoolean("Gender"),
+						resultSet.getInt("Gender"),
 						resultSet.getDouble("Height"),
 						resultSet.getDouble("Weight"),
 						resultSet.getString("HealthStatus"),
@@ -94,6 +95,10 @@ public class AnimalDAO extends AbstractDAO {
 						resultSet.getString("CellID"),
 						resultSet.getString("RegionName"),
 						resultSet.getString("RegionID"));
+				Species species = new Species(resultSet.getString("SpeciesID"),
+						resultSet.getString("SpeciesName"),
+						resultSet.getString("Description"));
+				animal.setSpecies(species);
 				animalList.add(animal);
 			}
 			
@@ -115,6 +120,47 @@ public class AnimalDAO extends AbstractDAO {
 		return animalList;
 	}
 	
+	public Animal getAnimalById(String id) {
+		Animal animal = null;
+		try {		
+			connection =  dbAccess.getConnectMySQL();
+			String sql = "SELECT * FROM animal an LEFT JOIN cell cl ON an.CellID = cl.CellID LEFT JOIN region rg ON cl.RegionID = rg.RegionID WHERE AnimalID = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, id);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				animal = new Animal(resultSet.getString("AnimalID"),
+						resultSet.getString("AnimalName"),
+						resultSet.getString("SpeciesID"),
+						resultSet.getInt("Gender"),
+						resultSet.getDouble("Height"),
+						resultSet.getDouble("Weight"),
+						resultSet.getString("HealthStatus"),
+						resultSet.getString("Description"),
+						resultSet.getString("CellID"),
+						resultSet.getString("RegionName"),
+						resultSet.getString("RegionID"));
+				
+			}	
+		}
+		catch (Exception ex) {
+			
+		}
+		finally {
+			try {
+				resultSet.close();
+				preparedStatement.close();
+				connection.close();
+			}
+			catch (Exception ex) {
+				
+			}
+		}
+		
+		return animal;
+	}
+	
+	
 	public ArrayList<Animal> searchAnimalById(String id) {
 		ArrayList<Animal> animalList = new ArrayList<Animal>();
 		try {		
@@ -127,7 +173,7 @@ public class AnimalDAO extends AbstractDAO {
 				Animal animal = new Animal(resultSet.getString("AnimalID"),
 						resultSet.getString("AnimalName"),
 						resultSet.getString("SpeciesID"),
-						resultSet.getBoolean("Gender"),
+						resultSet.getInt("Gender"),
 						resultSet.getDouble("Height"),
 						resultSet.getDouble("Weight"),
 						resultSet.getString("HealthStatus"),
@@ -165,7 +211,7 @@ public class AnimalDAO extends AbstractDAO {
 			preparedStatement.setString(1, newAnimal.getAnimalID());
 			preparedStatement.setString(2, newAnimal.getAnimalName());
 			preparedStatement.setString(3, newAnimal.getSpeciesID());
-			preparedStatement.setBoolean(4, newAnimal.getGender());
+			preparedStatement.setInt(4, newAnimal.getGender());
 			preparedStatement.setDouble(5, newAnimal.getWeight());
 			preparedStatement.setDouble(6, newAnimal.getHeight());
 			preparedStatement.setString(7, newAnimal.getHealthStatus());

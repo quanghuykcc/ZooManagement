@@ -11,8 +11,8 @@ public class SpeciesDAO extends AbstractDAO{
 		dbAccess = new ConnectDbLib();
 	}
 	
-	public ArrayList<Species> getAllSpecies() {
-		ArrayList<Species> speciesList = new ArrayList<Species>();
+	public static ArrayList<Species> getAllSpecies() {
+		ArrayList<Species> speciesList = new ArrayList<>();
 		try {		
 			connection =  dbAccess.getConnectMySQL();
 			String sql = "SELECT * FROM species";
@@ -23,11 +23,9 @@ public class SpeciesDAO extends AbstractDAO{
 						resultSet.getString("SpeciesName"), 
 						resultSet.getString("Description"));
 						speciesList.add(species);
-			}
-			
+			}	
 		}
-		catch (Exception ex) {
-			
+		catch (Exception ex) {	
 		}
 		finally {
 			try {
@@ -39,7 +37,6 @@ public class SpeciesDAO extends AbstractDAO{
 				
 			}
 		}
-		
 		return speciesList;
 	}
 }

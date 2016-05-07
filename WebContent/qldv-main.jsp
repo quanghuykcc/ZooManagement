@@ -43,7 +43,7 @@
           <ul>
             <li><a href="#">Khu vực</a></li>
             <li><a href="#">Chuồng</a></li>
-            <li><a href="">Động vật</a></li>
+            <li><a href=<%=request.getContextPath() + "/animal-management" %>>Động vật</a></li>
           </ul>
         </li>
         <li><a href="<%=request.getContextPath()%>/info-user">Quản lý nhân viên</a>
@@ -74,7 +74,7 @@
         </form>
         </div>
         <div id="add-btn">
-        	<a href=<%=request.getContextPath() + "/AddAnimalServlet" %>>
+        	<a href=<%=request.getContextPath() + "/add-animal" %>>
         		<input type="button" class="btn btn-info" name="add" value="Thêm động vật" onClick=""></input>
         	</a>
         </div>

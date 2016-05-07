@@ -1,192 +1,147 @@
-<%@page import="model.Animal"%>
-<%@page import="model.Cell"%>
-<%@page import="model.Region"%>
-<%@page import="model.Species"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
+<%@include file="/inc/header.jsp" %>
+  <title>Chỉnh sửa động vật</title>
+   <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
   <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
-  <script type="text/javascript">
+	<style>
+		body{
+			width:700px;
+			margin: auto;
+		}
+		.medium{
+			width: 400px;
+		}
+		.bt{
+			margin-left: 150px;
+		}
+	</style>
+</head>
+<body>
+    <form method="POST">
+    <fieldset>
+      <legend style="text-align: center;">Thêm động vật</legend>
+        <table id="animal-info" style="width:100%; border: 1px">
+          <tr>
+            <td><label for="select-species">Loài</label></td>
+            <td><select id="select-species" name="select-species" class="form-control medium ">
+                <option value="thu">Thú</option>
+                <option value="luong-cu">Lưỡng cư</option>
+                <option value="chim">Chim</option>
+                <option value="bo-sat">Bò sát</option>
+            </select>(*)</td>
+          </tr>
+          <tr>
+            <td><label for="animal-id">Mã động vật</label></td>
+            <td><input style="margin-top: 10px;" class="form-control medium" type="text" class="form-control" id="animal-id" name="animal-id"></input>(*)</td>
+          </tr>
+          <tr>
+            <td><label for="animal-name">Tên động vật</label></td>
+            <td><input  class="form-control medium" type="text" class="form-control" id="animal-name" name="animal-name"></input>(*)</td>
+          </tr>
+          <tr>
+				<td><label for="gender">Giới tính</label></td>
+				<td>
+				<input type="radio" name="gender" checked="checked" value="Nam">Nam
+				<input type="radio" name="gender" value="Nữ">Nữ
+				</td>
+          </tr>
+          <tr>
+            <td><label for="weight"></label>Cân nặng</td>
+            <td><input style="margin-top: 10px;" class="form-control medium" type="text" id="weight" name="weight" class="form-control"></input></td>
+          </tr>
+          <tr>
+            <td><label for="height"></label>Chiều cao</td>
+            <td><input style="margin-top: 10px;" class="form-control medium" type="text" id="height" name="height" class="form-control"></input></td>
+          </tr>
+          <tr>
+            <td><label for="select-helth">Sức khỏe</label></td>
+            <td><select style="margin-top: 10px;" id="select-health" name="select-health" class="form-control medium">
+                <option value="khoe-manh">Khỏe mạnh</option>
+                <option value="om">Ốm</option>
+            </select>(*)</td>
+          </tr>
+          <tr>
+            <td><label for="desc">Mô tả</label></td>
+            <td><textarea id="desc" class="form-control medium" rows="3" cols="30" name="description"></textarea></td>
+          </tr>
+          <tr>
+            <td><label for="select-region"></label>Mã khu vực</td>
+            <td><select  style="margin-top: 10px;" id="select-region" class="form-control medium" name="select-region">
+                <option value="a">A</option>
+                <option value="b">B</option>
+            </select>(*)</td>
+          </tr>
+          <tr>
+            <td><label for="select-cell">Mã chuồng</label></td>
+            <td><select style="margin-top: 10px;" id="select-cell" class="form-control medium" name="select-cell">
+                <option value="a1">A1</option>
+                <option value="a2">A2</option>
+            </select></td>
+          </tr>
+        </table>
+        <div class="bt">
+	      <input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="delete" value="Xóa động vật">
+	      <input style="margin-top: 10px;"type="button" class="btn btn-default btn-primary" name="save" value="Lưu">
+	      <input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy">
+  		</div>
+  </fieldset>
+  </form>
+   <script type="text/javascript">
 			$(document).ready(function(){
 				jQuery.validator.setDefaults({
 					  success: "valid"
 				});
-				$("#frm-edit-animal").validate({
+				$("#frm-changepass").validate({
 					ignore : [],
 					debug : false,
 					rules: {
 						animal_id: {
 							required: true,
-							maxlength: 10,
 						},
 						animal_name: {
-							maxlength: 30,
-						},
-						
-						species_id: {
 							required: true,
-							maxlength: 10,
+							minlength: 6,
 						},
-						
 						weight: {
+							required: true,
+							
 						},
 						height: {
+							required: true,
+							
 						},
 						health_status: {
-							maxlength: 30
+							required: true,
+							
 						},
 						description: {
-							maxlength: 1000
-						},
-						cell_id: {
 							required: true,
-							maxlength: 10
+							
 						},
 					},
 					messages: {
-						
 						animal_id: {
-							required: "<span style='color:red;'>Cần phải nhập mã động vật</span>",
-							maxlength: "<span style='color:red;'>Mã động vật tối đa là 10 ký tự</span>",
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
 						animal_name: {
-							maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>",
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
-						
-						species_id: {
-							required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
-							maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
-						},
-						
 						weight: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
 						height: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
 						health_status: {
-							maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>",
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
 						description: {
-							maxlength: "<span style='color:red;'>Mô tả tối đa là 1000 ký tự</span>",
-						},
-						cell_id: {
-							required: "<span style='color:red;'>Cần phải chọn chuồng cho động vật</span>",
-							maxlength: "<span style='color:red;'>Mã chuồng tối đa là 10 ký tự</span>",
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
 						},
 					}
 				});
 			});
-	</script>
-  <meta charset="UTF-8">
-  <title>Chỉnh sửa động vật</title>
-</head>
-<body>
-  <form method="POST" id="frm-edit-animal" action=<%=request.getContextPath() + "/UpdateAnimal"%>>
-    <fieldset>
-      <legend>Chỉnh sửa động vật</legend>
-        <table id="animal-info" style="width:100%; border: 1px">
-          <tr>
-            <td><label for="select-species">Loài</label></td>
-            <td><select id="select-species" name="species_id" class="form-control">
-            <%
-            	ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
-            	for (Species species : speciesList) {
-            %>
-            		<option value=<%=species.getSpeciesID() %>>
-            			<%=species.getSpeciesName()%>
-            		</option>
-            <%	
-            	}
-            		
-            %>
-                
-               
-            </select>(*)</td>
-          </tr>
-          <tr>
-          	<%
-          		Animal animal = (Animal) request.getAttribute("animal");
-          	%>
-            <td><label for="animal-id">Mã động vật</label></td>
-            <td><input type="text" class="form-control" id="animal_id" name="animal_id" value=<%=animal.getAnimalID()%> readonly></input>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="animal-name">Tên động vật</label></td>
-            <td><input type="text" class="form-control" id="animal_name" name="animal_name" value=<%=animal.getAnimalName() %>></input>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="sex"></label>Giới tính</td>
-            <%
-            	if (animal.getGender() == 1) {           		
-            %>
-            	<td><input type="checkbox" id="gender" name="gender" checked class="form-control"></input>Cái (*)</td>
-            <% 	}
-            	else {
-            		
-            %>
-            	<td><input type="checkbox" id="gender" name="gender" class="form-control"></input>Cái (*)</td>
-            <%
-            	}
-            %>
-            
-          </tr>
-          <tr>
-            <td><label for="weight"></label>Cân nặng</td>
-            <td><input type="number" id="weight" name="weight" class="form-control" value=<%=animal.getWeight() %>></input></td>
-          </tr>
-          <tr>
-            <td><label for="height"></label>Chiều cao</td>
-            <td><input type="number" id="height" name="height" class="form-control" value=<%=animal.getHeight() %>></input></td>
-          </tr>
-          <tr>
-            <td><label for="select-helth">Sức khỏe</label></td>
-            <td><input type="text" name="health_status" id="health_status" class="form-control" value=<%=animal.getHealthStatus()%>></td>
-          </tr>
-          <tr>
-            <td><label for="desc">Mô tả</label></td>
-            <td><textarea id="description" class="form-control" rows="3" cols="30" name="description" value=<%=animal.getDescription()%>></textarea></td>
-          </tr>
-          <tr>
-            <td><label for="select-region"></label>Mã khu vực</td>
-            <td><select id="region_id" class="form-control" name="region_id">
-            	<%
-	            	ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
-	            	for (Region region : regionList) {
-	            %>
-	            		<option value=<%=region.getRegionID()%>>
-	            			<%=region.getRegionID()%>
-	            		</option>
-	            <%	
-	            	}
-	            		
-	            %>
-            </select>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="select-cell">Mã chuồng</label></td>
-            <td><select id="cell_id" class="form-control" name="cell_id">
-                <%
-	            	ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
-	            	for (Cell cell : cellList) {
-	            %>
-	            		<option value=<%=cell.getCellID()%>>
-	            			<%=cell.getCellID()%>
-	            		</option>
-	            <%	
-	            	}
-	            		
-	            %>
-            </select></td>
-          </tr>
-        </table>
-      <input type="submit" class="btn btn-default" name="submit" value="Cập nhật">
-      <input type="button" class="btn btn-default" name="erase" value="Xóa động vật">
-      <a href=<%=request.getContextPath() + "/animal-management" %>><input type="button" class="btn btn-default" name="cancel" value="Hủy"></a>
-  </fieldset>
-  </form>
+			</script>
 </body>
 </html>

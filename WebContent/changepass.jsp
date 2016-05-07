@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@page import="model.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/inc/header.jsp" %>
 <title>Change Pass User</title>
 <style type="text/css">
@@ -14,6 +15,9 @@
 </style>
 </head>
 <body>
+	<%
+		User sUser =(User) session.getAttribute("sUser");
+	%>
 	 <script type="text/javascript">
 			$(document).ready(function(){
 				jQuery.validator.setDefaults({
@@ -55,9 +59,9 @@
   <form method="POST" action="<%=request.getContextPath()%>/change-pass" id="frm-changepass">
   <fieldset>
   <legend style="text-align: center;">Đổi mật khẩu</legend>
-    Tên đăng nhập:<br>
+    <label>Tên đăng nhập : <span style="color:blue;"><%=sUser.getUsername()%></span></label><br>
     <div class="form-group">
-    <label>Mật khẩu cũ:</label>
+    <label>Mật khẩu cũ: </label>
     <input class="form-control" type="password" name="old_password">
     </div>
     <div class="form-group">

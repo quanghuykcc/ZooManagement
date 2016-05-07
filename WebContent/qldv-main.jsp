@@ -1,7 +1,7 @@
 <%@page import="model.Animal"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -46,7 +46,7 @@
             <li><a href="">Động vật</a></li>
           </ul>
         </li>
-        <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>
+        <li><a href="<%=request.getContextPath()%>/info-user">Quản lý nhân viên</a>
         </li>
         <li><a href="#">Quản lý thức ăn</a>
         </li>

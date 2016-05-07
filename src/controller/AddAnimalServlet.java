@@ -22,7 +22,7 @@ import model.Species;
 /**
  * Servlet implementation class AddAnimalServlet
  */
-@WebServlet("/AddAnimalServlet")
+@WebServlet(name = "AddAnimalServlet", urlPatterns = {"/AddAnimalServlet"})
 public class AddAnimalServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -64,43 +64,31 @@ public class AddAnimalServlet extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html");
 
-        String submit = request.getParameter("submit");
-        if (submit != null) {
-            String speciesID = request.getParameter("species_id");
-            String animalID = request.getParameter("animal_id");
-            String animalName = request.getParameter("animal_name");
-            String genderStr = request.getParameter("gender");
-            int gender;
-            if (genderStr != null) {
-                gender = 1;
-            } else {
-                gender = 0;
-            }
-            String weight = request.getParameter("weight");
-            String height = request.getParameter("height");
-            String healthStatus = request.getParameter("health_status");
-            String description = request.getParameter("description");
-            String cellID = request.getParameter("cell_id");
-
-            Animal animal = new Animal(animalID, animalName, speciesID, gender, Double.parseDouble(height), Double.parseDouble(weight), healthStatus, description, cellID);
-            boolean ok = new AnimalDAO().addNewAnimal(animal);
-            if (ok) {
-                response.sendRedirect(request.getContextPath() + "/animal-management");
-            } else {
-                response.sendRedirect("dang-nhap.jsp");
-            }
+        String speciesID = request.getParameter("species_id");
+        String animalID = request.getParameter("animal_id");
+        String animalName = request.getParameter("animal_name");
+        String genderStr = request.getParameter("gender");
+        int gender;
+        if (genderStr != null) {
+            gender = 1;
         } else {
-
-            ArrayList<Species> speciesList = SpeciesDAO.getAllSpecies();
-            ArrayList<Region> regionList = RegionDAO.getAllRegions();
-            ArrayList<Cell> cellList = CellDAO.getAllCells();
-            request.setAttribute("species_list", speciesList);
-            request.setAttribute("region_list", regionList);
-            request.setAttribute("cell_list", cellList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("add-animal.jsp");
-            dispatcher.forward(request, response);
+            gender = 0;
         }
+        String weight = request.getParameter("weight");
+        String height = request.getParameter("height");
+        String healthStatus = request.getParameter("health_status");
+        String description = request.getParameter("description");
+        String cellID = request.getParameter("cell_id");
 
+        Animal animal = new Animal(animalID, animalName, speciesID, gender,
+                                   Double.parseDouble(height), Double.parseDouble(weight),
+                                   healthStatus, description, cellID);
+        boolean ok = AnimalDAO.addNewAnimal(animal);
+        if (ok) {
+            response.sendRedirect(request.getContextPath() + "/animal-management");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/add-animal");
+        }
     }
 
 }

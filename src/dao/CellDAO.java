@@ -19,7 +19,6 @@ public class CellDAO extends AbstractDAO {
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                System.out.println("bom");
                 Cell cell = new Cell(resultSet.getString("CellID"),
                         resultSet.getString("CellName"),
                         resultSet.getString("RegionID"),
@@ -42,12 +41,10 @@ public class CellDAO extends AbstractDAO {
         }
         return cellList;
     }
-    public static void main(String[] args) {
-        ArrayList<Cell> cellList = CellDAO.getAllCells();
-        System.out.println("yeah");
-        for (Cell cell : cellList) {
-            System.out.println("nah");
-            System.out.println(cell.getCellID());
-        }
-    }
+//    public static void main(String[] args) {
+//        ArrayList<Cell> cellList = CellDAO.getAllCells();
+//        for (Cell cell : cellList) {
+//            System.out.println(cell.getCellID());
+//        }
+//    }
 }

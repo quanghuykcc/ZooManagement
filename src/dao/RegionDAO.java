@@ -8,12 +8,13 @@ import model.Region;
 public class RegionDAO extends AbstractDAO {
 
     public RegionDAO() {
-        dbAccess = new ConnectDbLib();
+        
     }
 
     public static ArrayList<Region> getAllRegions() {
         ArrayList<Region> regionList = new ArrayList<>();
         try {
+            dbAccess = new ConnectDbLib();
             connection = dbAccess.getConnectMySQL();
             String sql = "SELECT * FROM region";
             preparedStatement = connection.prepareStatement(sql);
@@ -44,6 +45,7 @@ public class RegionDAO extends AbstractDAO {
     public static Region getRegionById(String id) {
         Region region = null;
         try {
+            dbAccess = new ConnectDbLib();
             connection = dbAccess.getConnectMySQL();
             String sql = "SELECT * FROM region WHERE RegionID like ?";
             preparedStatement = connection.prepareStatement(sql);

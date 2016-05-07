@@ -74,7 +74,7 @@
         </form>
         </div>
         <div id="add-btn">
-        	<a href=<%=request.getContextPath() + "/AddAnimalServlet" %>>
+        	<a href=<%=request.getContextPath() + "/add-animal" %>>
         		<input type="button" class="btn btn-info" name="add" value="Thêm động vật" onClick=""></input>
         	</a>
         </div>

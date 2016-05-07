@@ -12,17 +12,19 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
         <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/resources/add_animal.js" ></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/add_animal.js" ></script>
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/add_animal.css" >
         <meta charset="UTF-8">
         <title>Thêm động vật</title>
     </head>
     <body>
-        <form method="POST" action="<%=request.getContextPath()%>/AddAnimalServlet" id="frm-add-animal">
+        <div id="add-animal-form">
+        <form method="POST" action="AddAnimalServlet" id="frm-add-animal">
             <fieldset>
                 <legend>Thêm động vật</legend>
-                <table id="animal-info" style="width:100%; border: 1px">
+                <table id="animal-info" style="border: 1px">
                     <tr>
-                        <td><label for="select-species">Loài</label></td>
+                        <td><label for="select-species">Loài (*)</label></td>
                         <td><select id="species_id" name="species_id" class="form-control">
                                 <%
                                     ArrayList<Species> speciesList = SpeciesDAO.getAllSpecies();
@@ -34,38 +36,38 @@
                                 <%
                                     }  %>
 
-                            </select>(*)</td>
+                            </select></td>
                     </tr>
                     <tr>
-                        <td><label for="animal-id">Mã động vật</label></td>
-                        <td><input type="text" class="form-control" id="animal_id" name="animal_id"></input>(*)</td>
+                        <td><label for="animal-id">Mã động vật (*)</label></td>
+                        <td><input type="text" class="form-control" id="animal_id" name="animal_id"></td>
                     </tr>
                     <tr>
-                        <td><label for="animal-name">Tên động vật</label></td>
-                        <td><input type="text" class="form-control" id="animal_name" name="animal_name"></input>(*)</td>
+                        <td><label for="animal-name">Tên động vật (*)</label></td>
+                        <td><input type="text" class="form-control" id="animal_name" name="animal_name"></td>
                     </tr>
                     <tr>
-                        <td><label for="sex"></label>Giới tính</td>
-                        <td><input type="checkbox" id="gender" name="gender" class="form-control"></input>Cái (*)</td>
+                        <td><label for="gender">Giới tính (*)</label></td>
+                        <td><label><input type="checkbox" id="gender" class="in-row" name="gender" class="form-control"><p class="in-row">Cái</p></label></td>
                     </tr>
                     <tr>
-                        <td><label for="weight"></label>Cân nặng</td>
-                        <td><input type="number" id="weight" name="weight" class="form-control"></input></td>
+                        <td><label for="weight">Cân nặng</label></td>
+                        <td><input type="number" id="weight" name="weight" class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><label for="height"></label>Chiều cao</td>
-                        <td><input type="number" id="height" name="height" class="form-control"></input></td>
+                        <td><label for="height">Chiều cao</label></td>
+                        <td><input type="number" id="height" name="height" class="form-control"></td>
                     </tr>
                     <tr>
-                        <td><label for="select-helth">Sức khỏe</label></td>
+                        <td><label for="health_status">Sức khỏe</label></td>
                         <td><input type="text" name="health_status" class="form-control" id="health_status"></td>
                     </tr>
                     <tr>
-                        <td><label for="desc">Mô tả</label></td>
+                        <td><label for="description">Mô tả</label></td>
                         <td><textarea id="description" class="form-control" rows="3" cols="30" name="description"></textarea></td>
                     </tr>
                     <tr>
-                        <td><label for="select-region"></label>Mã khu vực</td>
+                        <td><label for="region-id">Mã khu vực (*)</label></td>
                         <td><select id="region_id" class="form-control" name="region_id">
                                 <%  
                                     ArrayList<Region> regionList = RegionDAO.getAllRegions();
@@ -73,9 +75,8 @@
                                         <option value=<%=region.getRegionID()%>><%=region.getRegionID()%></option>
                                 <%
                                     }
-
                                 %>
-                            </select>(*)</td>
+                            </select></td>
                     </tr>
                     <tr>
                         <td><label for="select-cell">Mã chuồng</label></td>
@@ -94,5 +95,6 @@
                 <a href=<%=request.getContextPath() + "/animal-management"%>><input type="button" class="btn btn-default" name="cancel" value="Hủy"></a>
             </fieldset>
         </form>
+        </div>
     </body>
 </html>

@@ -34,7 +34,6 @@
     <url-pattern>/change-pass</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>dang-nhap.jsp</welcome-file>
-
+    <welcome-file>checklogin</welcome-file>
   </welcome-file-list>
 </web-app>

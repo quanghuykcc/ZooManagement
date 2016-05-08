@@ -11,14 +11,78 @@
 	src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/lib/jquery.validate.js"></script>
-	<script type="text/javascript">
-	$(document).ready(
-		function() {
-			 
-		}
-	);
+<script type="text/javascript">
+		$(document).ready(function(){
+			jQuery.validator.setDefaults({
+				success: "valid"
+			});
+			$("#frm-edit-animal").validate({
+				ignore : [],
+				debug : false,
+				rules: {
+					animal_id: {
+						required: true,
+						maxlength: 10,
+					},
+					animal_name: {
+						maxlength: 30,
+					},
+					
+					species_id: {
+						required: true,
+						maxlength: 10,
+					},
+					
+					weight: {
+					},
+					height: {
+					},
+					health_status: {
+						maxlength: 30
+					},
+					description: {
+						maxlength: 1000
+					},
+					cell_id: {
+						required: true,
+						maxlength: 10
+					},
+				},
+				messages: {
+					
+					animal_id: {
+						required: "<span style='color:red;'>Cần phải nhập mã động vật</span>",
+						maxlength: "<span style='color:red;'>Mã động vật tối đa là 10 ký tự</span>",
+					},
+					animal_name: {
+						maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>",
+					},
+					
+					species_id: {
+						required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
+						maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
+					},
+					
+					weight: {
+					},
+					height: {
+					},
+					health_status: {
+						maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>",
+					},
+					description: {
+						maxlength: "<span style='color:red;'>Mô tả tối đa là 1000 ký tự</span>",
+					},
+					cell_id: {
+						required: "<span style='color:red;'>Cần phải chọn chuồng cho động vật</span>",
+						maxlength: "<span style='color:red;'>Mã chuồng tối đa là 10 ký tự</span>",
+					},
+				}
+			});
+});
+	</script>	
 	
-	</script>
+	
 <style>
 body {
 	width: 700px;
@@ -35,7 +99,7 @@ body {
 </style>
 </head>
 <body>
-	<form method="POST" action=<%=request.getContextPath() + "/update_animal" %>>
+	<form method="POST" action=<%=request.getContextPath() + "/update_animal"%> id="frm-edit-animal">
 		<fieldset>
 			<legend style="text-align: center;">Chỉnh sửa động vật</legend>
 			

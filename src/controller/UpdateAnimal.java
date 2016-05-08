@@ -19,31 +19,18 @@ import model.Cell;
 import model.Region;
 import model.Species;
 
-/**
- * Servlet implementation class UpdateAnimal
- */
-@WebServlet("/UpdateAnimal")
+@WebServlet("/update_animal")
 public class UpdateAnimal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UpdateAnimal() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -56,7 +43,7 @@ public class UpdateAnimal extends HttpServlet {
 			String animalName = request.getParameter("animal_name");
 			String genderStr = request.getParameter("gender");
 			int gender;
-			if (genderStr != null) {
+			if (genderStr.equals("male")) {
 				gender = 1;
 			}
 			else {
@@ -77,24 +64,28 @@ public class UpdateAnimal extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/animal-management");
 			}
 			else {
-				response.sendRedirect("dang-nhap.jsp");
+				showEditAnimal(request, response);
 			}
 		}
 		
 		else {
 			
-			String animalID = request.getParameter("animal_id");
-			Animal animal = new AnimalDAO().getAnimalById(animalID);
-			ArrayList<Species> speciesList = new SpeciesDAO().getAllSpecies();
-			ArrayList<Region> regionList = new RegionDAO().getAllRegions();
-			ArrayList<Cell> cellList = new CellDAO().getAllCells();
-			request.setAttribute("species_list", speciesList);
-			request.setAttribute("region_list", regionList);
-			request.setAttribute("cell_list", cellList);
-			request.setAttribute("animal", animal);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("edit-animal.jsp");
-			dispatcher.forward(request, response);
+			showEditAnimal(request, response);
 		}
+	}
+	
+	public void showEditAnimal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String animalID = request.getParameter("animal_id");
+		Animal animal = new AnimalDAO().getAnimalById(animalID);
+		ArrayList<Species> speciesList = new SpeciesDAO().getAllSpecies();
+		ArrayList<Region> regionList = new RegionDAO().getAllRegions();
+		ArrayList<Cell> cellList = new CellDAO().getAllCells();
+		request.setAttribute("species_list", speciesList);
+		request.setAttribute("region_list", regionList);
+		request.setAttribute("cell_list", cellList);
+		request.setAttribute("animal", animal);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("edit-animal.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

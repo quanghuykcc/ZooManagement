@@ -1,3 +1,5 @@
+<%@page import="model.Cell"%>
+<%@page import="model.Region"%>
 <%@page import="model.Animal"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -26,6 +28,41 @@
         float: right;
     }
   </style>
+  
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		$('#region_select').on('change', function() {
+  			var region_id = this.value;
+  			$.ajax({
+  				type:'POST',
+  				url:'animals_by_region',
+  				data:{region_id:region_id},
+  				success:function(result) {
+  					$('#table_animal').html(result);
+  					
+  				}
+  				
+  			});
+  		});
+  		
+  		$('#cell_select').on('change', function() {
+  			var cell_id = this.value;
+  			$.ajax({
+  				type:'POST',
+  				url:'animals_by_cell',
+  				data:{cell_id:cell_id},
+  				success:function(result) {
+  					$('#table_animal').html(result);
+  					
+  				}
+  				
+  			});
+  		});
+  		
+  	});
+  </script>
+  
+  
   <title>Quản lý động vật</title>
 </head>
 <body>
@@ -58,12 +95,27 @@
         <div id="form-filter">
         <form class="form-inline" role="form" action=<%=request.getContextPath() + "/search" %> method="post">
             <div class="from-group">
-                <select name="region" class="form-control">
-                  <option disabled="disable">Chọn khu vực</option>
-                  <option>A</option>
+                <select name="region" id="region_select" class="form-control">
+                <% 
+                	ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
+                	for (Region region : regionList) {
+                		
+                %>
+                	<option value=<%=region.getRegionID() %>><%=region.getRegionName() %></option>
+                <%
+                	}
+                %>
                 </select>
-                <select name="cell" class="form-control">
-                  <option disabled="disable" selected="selected">Chọn chuồng</option>
+                <select name="cell" id="cell_select" class="form-control">
+                  	<% 
+                	ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
+                	for (Cell cell : cellList) {
+                		
+               		 %>
+                	<option value=<%=cell.getCellID() %>><%=cell.getCellID() %></option>
+                	<%
+                	}
+                	%>
                 </select>
                 <select name="species" class="form-control">
                   <option disabled="disable" selected="selected">Chọn loài</option>
@@ -80,6 +132,7 @@
         </div>
       </div>
       <br>
+      <div id="table_animal">
       <table id="animal-info" class="table table-striped table-responsive" style="width: 100%">
         <tr>
           <th>Mã ĐV</th>
@@ -101,12 +154,13 @@
           <td><%=animal.getRegionID()%></td>
           <td><%=animal.getCellID()%></td>
           <td><%=animal.getHealthStatus()%></td>
-          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
+          <td><a href=<%=request.getContextPath() + "/update_animal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
         </tr>
         <%
         	}
         %>
       </table>
+      </div>
     </div>
   </div>
 </body>

@@ -23,8 +23,8 @@ import org.json.JSONObject;
  *
  * @author mozart
  */
-@WebServlet(name = "RegionJsonServlet", urlPatterns = {"/RegionJsonServlet"})
-public class RegionJsonServlet extends HttpServlet {
+@WebServlet(name = "CellJsonServlet", urlPatterns = {"/CellJsonServlet"})
+public class CellJsonServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

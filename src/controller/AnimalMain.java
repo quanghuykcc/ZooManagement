@@ -10,7 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AnimalDAO;
+import dao.CellBO;
+import dao.RegionBO;
+import dao.RegionDAO;
 import model.Animal;
+import model.Cell;
+import model.Region;
 
 /**
  * Servlet implementation class AnimalMain
@@ -42,8 +47,12 @@ public class AnimalMain extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		ArrayList<Animal> animalList = new AnimalDAO().getAllAnimals();
+		ArrayList<Animal> animalList = new AnimalDAO().getAllAnimals();	
+		ArrayList<Region> regionList = new RegionBO().getAllRegions();
+		ArrayList<Cell> cellList = new CellBO().getAllCells();
 		request.setAttribute("animal_list", animalList);
+		request.setAttribute("region_list", regionList);
+		request.setAttribute("cell_list", cellList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("qldv-main.jsp");	
 		dispatcher.forward(request, response);
 		

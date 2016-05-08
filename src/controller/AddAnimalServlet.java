@@ -70,7 +70,7 @@ public class AddAnimalServlet extends HttpServlet {
         String animalName = request.getParameter("animal_name");
         String genderStr = request.getParameter("gender");
         int gender;
-        if (genderStr != null) {
+        if (genderStr.equals("male")) {
             gender = 1;
         } else {
             gender = 0;

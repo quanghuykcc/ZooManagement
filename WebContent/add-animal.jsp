@@ -5,7 +5,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Cell, model.Region, model.Species"%>
 
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -21,7 +22,7 @@
         <script>
             function cell_on_region() {
                 regionID = $("#region_id").val();
-                $.get("RegionJsonServlet", {regionID: regionID}, function (responseJSON) {
+                $.get("CellJsonServlet", {regionID: regionID}, function (responseJSON) {
                     var $cell_select = $("#cell_id");
                     $cell_select.find('option').remove();
                     $.each(responseJSON, function (key, value) {

@@ -1,147 +1,311 @@
+<%@page import="model.Animal"%>
+<%@page import="model.Cell"%>
+<%@page import="model.Region"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Species"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@include file="/inc/header.jsp" %>
-  <title>Chỉnh sửa động vật</title>
-   <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
-  <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
-	<style>
-		body{
-			width:700px;
-			margin: auto;
-		}
-		.medium{
-			width: 400px;
-		}
-		.bt{
-			margin-left: 150px;
-		}
-	</style>
+	pageEncoding="utf-8"%>
+<%@include file="/inc/header.jsp"%>
+<title>Chỉnh sửa động vật</title>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/jquery.validate.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			jQuery.validator.setDefaults({
+				success: "valid"
+			});
+			$("#frm-edit-animal").validate({
+				ignore : [],
+				debug : false,
+				rules: {
+					animal_id: {
+						required: true,
+						maxlength: 10,
+					},
+					animal_name: {
+						maxlength: 30,
+					},
+					
+					species_id: {
+						required: true,
+						maxlength: 10,
+					},
+					
+					weight: {
+					},
+					height: {
+					},
+					health_status: {
+						maxlength: 30
+					},
+					description: {
+						maxlength: 1000
+					},
+					cell_id: {
+						required: true,
+						maxlength: 10
+					},
+				},
+				messages: {
+					
+					animal_id: {
+						required: "<span style='color:red;'>Cần phải nhập mã động vật</span>",
+						maxlength: "<span style='color:red;'>Mã động vật tối đa là 10 ký tự</span>",
+					},
+					animal_name: {
+						maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>",
+					},
+					
+					species_id: {
+						required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
+						maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
+					},
+					
+					weight: {
+					},
+					height: {
+					},
+					health_status: {
+						maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>",
+					},
+					description: {
+						maxlength: "<span style='color:red;'>Mô tả tối đa là 1000 ký tự</span>",
+					},
+					cell_id: {
+						required: "<span style='color:red;'>Cần phải chọn chuồng cho động vật</span>",
+						maxlength: "<span style='color:red;'>Mã chuồng tối đa là 10 ký tự</span>",
+					},
+				}
+			});
+});
+	</script>	
+	
+	
+<style>
+body {
+	width: 700px;
+	margin: auto;
+}
+
+.medium {
+	width: 400px;
+}
+
+.bt {
+	margin-left: 150px;
+}
+</style>
 </head>
 <body>
-    <form method="POST">
-    <fieldset>
-      <legend style="text-align: center;">Thêm động vật</legend>
-        <table id="animal-info" style="width:100%; border: 1px">
-          <tr>
-            <td><label for="select-species">Loài</label></td>
-            <td><select id="select-species" name="select-species" class="form-control medium ">
-                <option value="thu">Thú</option>
-                <option value="luong-cu">Lưỡng cư</option>
-                <option value="chim">Chim</option>
-                <option value="bo-sat">Bò sát</option>
-            </select>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="animal-id">Mã động vật</label></td>
-            <td><input style="margin-top: 10px;" class="form-control medium" type="text" class="form-control" id="animal-id" name="animal-id"></input>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="animal-name">Tên động vật</label></td>
-            <td><input  class="form-control medium" type="text" class="form-control" id="animal-name" name="animal-name"></input>(*)</td>
-          </tr>
-          <tr>
-				<td><label for="gender">Giới tính</label></td>
-				<td>
-				<input type="radio" name="gender" checked="checked" value="Nam">Nam
-				<input type="radio" name="gender" value="Nữ">Nữ
-				</td>
-          </tr>
-          <tr>
-            <td><label for="weight"></label>Cân nặng</td>
-            <td><input style="margin-top: 10px;" class="form-control medium" type="text" id="weight" name="weight" class="form-control"></input></td>
-          </tr>
-          <tr>
-            <td><label for="height"></label>Chiều cao</td>
-            <td><input style="margin-top: 10px;" class="form-control medium" type="text" id="height" name="height" class="form-control"></input></td>
-          </tr>
-          <tr>
-            <td><label for="select-helth">Sức khỏe</label></td>
-            <td><select style="margin-top: 10px;" id="select-health" name="select-health" class="form-control medium">
-                <option value="khoe-manh">Khỏe mạnh</option>
-                <option value="om">Ốm</option>
-            </select>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="desc">Mô tả</label></td>
-            <td><textarea id="desc" class="form-control medium" rows="3" cols="30" name="description"></textarea></td>
-          </tr>
-          <tr>
-            <td><label for="select-region"></label>Mã khu vực</td>
-            <td><select  style="margin-top: 10px;" id="select-region" class="form-control medium" name="select-region">
-                <option value="a">A</option>
-                <option value="b">B</option>
-            </select>(*)</td>
-          </tr>
-          <tr>
-            <td><label for="select-cell">Mã chuồng</label></td>
-            <td><select style="margin-top: 10px;" id="select-cell" class="form-control medium" name="select-cell">
-                <option value="a1">A1</option>
-                <option value="a2">A2</option>
-            </select></td>
-          </tr>
-        </table>
-        <div class="bt">
-	      <input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="delete" value="Xóa động vật">
-	      <input style="margin-top: 10px;"type="button" class="btn btn-default btn-primary" name="save" value="Lưu">
-	      <input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy">
-  		</div>
-  </fieldset>
-  </form>
-   <script type="text/javascript">
-			$(document).ready(function(){
-				jQuery.validator.setDefaults({
-					  success: "valid"
-				});
-				$("#frm-changepass").validate({
-					ignore : [],
-					debug : false,
-					rules: {
-						animal_id: {
-							required: true,
-						},
-						animal_name: {
-							required: true,
-							minlength: 6,
-						},
-						weight: {
-							required: true,
-							
-						},
-						height: {
-							required: true,
-							
-						},
-						health_status: {
-							required: true,
-							
-						},
-						description: {
-							required: true,
-							
-						},
-					},
-					messages: {
-						animal_id: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-						animal_name: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-						weight: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-						height: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-						health_status: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-						description: {
-							required: "<span style='color:red;'>Không được bỏ trống</span>",
-						},
-					}
-				});
-			});
-			</script>
+	<form method="POST" action=<%=request.getContextPath() + "/update_animal"%> id="frm-edit-animal">
+		<fieldset>
+			<legend style="text-align: center;">Chỉnh sửa động vật</legend>
+			
+			<% 
+				Animal animal = (Animal) request.getAttribute("animal");
+			%>
+			
+			<table id="animal-info" style="width: 100%; border: 1px">
+				<tr>
+					<td><label>Loài</label></td>
+					<td><select name="species_id"
+						class="form-control medium ">
+							<%
+								ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
+								for (Species species : speciesList) {
+									if (species.getSpeciesID().equals(animal.getSpeciesID())) {
+									
+							%>
+							<option value=<%=species.getSpeciesID()%> selected><%=species.getSpeciesName()%></option>
+							<%
+								}
+							else {
+							%>
+								<option value=<%=species.getSpeciesID()%>><%=species.getSpeciesName()%></option>
+							<%
+							}
+								}
+							%>
+					</select>(*)</td>
+				</tr>
+				<tr>
+					<td><label>Mã động vật</label></td>
+					<td><input style="margin-top: 10px;" readonly
+						class="form-control medium" type="text" class="form-control" 
+					     name="animal_id" value=<%=animal.getAnimalID()%> ></input>(*)</td>
+				</tr>
+				<tr>
+					<td><label>Tên động vật</label></td>
+					<td><input class="form-control medium" type="text"
+						class="form-control" name="animal_name" value=<%=animal.getAnimalName() %>></td>
+				</tr>
+				<tr>
+					<td><label for="gender">Giới tính</label></td>
+					<td>
+					<%
+						if (animal.getGender() == 0) {
+					%>
+						<input type="radio" name="gender" value="male" checked>
+					<%
+						}
+						else {
+					%>	
+						<input type="radio" name="gender" value="male">
+					<%
+						}
+					%>
+						Con cái 
+					<%
+						if (animal.getGender() == 1) {
+					%>
+						<input type="radio" name="gender" value="female" checked>
+					<%
+						}
+						else {
+					%>
+						<input type="radio" name="gender" value="female">
+					<%
+						}
+					%>
+						Con đực
+					
+					
+					</td>
+				</tr>
+				<tr>
+					<td><label for="weight"></label>Cân nặng</td>
+					<td><input style="margin-top: 10px;"
+						class="form-control medium" type="text" name="weight"
+						class="form-control" value=<%=animal.getWeight() %>></input></td>
+				</tr>
+				<tr>
+					<td><label for="height"></label>Chiều cao</td>
+					<td><input style="margin-top: 10px;"
+						class="form-control medium" type="text" name="height"
+						class="form-control" value=<%=animal.getHeight() %>></input></td>
+				</tr>
+				<tr>
+					<td><label>Sức khỏe</label></td>
+					<td><input type="text" class="form-control medium" name="health_status" style="margin-top: 10px;" value=<%=animal.getHealthStatus() %>></td>
+				</tr>
+				<tr>
+					<td><label>Mô tả</label></td>
+					<td><textarea class="form-control medium" rows="3"
+							cols="30" name="description" style="margin-top: 10px;" value=<%=animal.getDescription() %>></textarea></td>
+				</tr>
+				<tr>
+					<td><label></label>Mã khu vực</td>
+					<td><select style="margin-top: 10px;"
+						class="form-control medium" name="region">
+							<%
+								ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
+								for (Region region : regionList) {
+									if (region.getRegionID().equals(animal.getRegionID())) {
+								
+							%>
+							<option value=<%=region.getRegionID()%> selected><%=region.getRegionName() %></option>
+							<%
+									}
+									else {
+										%>
+								<option value=<%=region.getRegionID()%>"><%=region.getRegionName() %></option>		
+							<%
+									}
+								}
+							%>
+					</select><span>(*)</span></td>
+				</tr>
+				<tr>
+					<td><label>Mã chuồng</label></td>
+					<td><select style="margin-top: 10px;"
+						class="form-control medium" name="cell_id">
+							<%
+							ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
+							for (Cell cell : cellList) {
+								if (cell.getCellID().equals(animal.getCellID())) {
+						%>
+							<option value=<%=cell.getCellID() %> selected><%=cell.getCellID()%></option>
+
+							<%
+							}
+								else {
+									%>
+									<option value=<%=cell.getCellID() %>><%=cell.getCellID()%></option>
+									<%
+								}
+								}
+						%>
+					</select><span>(*)</span></td>
+				</tr>
+			</table>
+			<div class="bt">
+				<a href=<%=request.getContextPath() + "/delete_animal?animal_id=" + animal.getAnimalID() %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="delete" value="Xóa động vật"></a> 
+				<input style="margin-top: 10px;" type="submit" name="submit" class="btn btn-default btn-primary" name="save" value="Lưu">
+				<a href=<%=request.getContextPath() + "animal-management" %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy"></a>
+			</div>
+		</fieldset>
+	</form>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							jQuery.validator.setDefaults({
+								success : "valid"
+							});
+							$("#frm-changepass")
+									.validate(
+											{
+												ignore : [],
+												debug : false,
+												rules : {
+													animal_id : {
+														required : true,
+													},
+													animal_name : {
+														required : true,
+														minlength : 6,
+													},
+													weight : {
+														required : true,
+
+													},
+													height : {
+														required : true,
+
+													},
+													health_status : {
+														required : true,
+
+													},
+													description : {
+														required : true,
+
+													},
+												},
+												messages : {
+													animal_id : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+													animal_name : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+													weight : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+													height : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+													health_status : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+													description : {
+														required : "<span style='color:red;'>Không được bỏ trống</span>",
+													},
+												}
+											});
+						});
+	</script>
 </body>
 </html>

@@ -36,5 +36,14 @@ public class AnimalBO {
 		AnimalDAO animalDAO = new AnimalDAO();
 		return animalDAO.addNewAnimal(newAnimal);
 	}
+	
+	public ArrayList<Animal> searchAnimalByRegion(String regionId) {
+		AnimalDAO animalDA0 = new AnimalDAO();
+		return AnimalDAO.searchAnimalByRegion(regionId);
+	}
+	
+	public static ArrayList<Animal> searchAnimalByCell(String cellId) {
+		return new AnimalDAO().searchAnimalByCell(cellId);
+	}
 	 
 }

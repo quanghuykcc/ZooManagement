@@ -41,10 +41,5 @@ public class CellDAO extends AbstractDAO {
         }
         return cellList;
     }
-//    public static void main(String[] args) {
-//        ArrayList<Cell> cellList = CellDAO.getAllCells();
-//        for (Cell cell : cellList) {
-//            System.out.println(cell.getCellID());
-//        }
-//    }
+
 }

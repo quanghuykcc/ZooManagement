@@ -1,3 +1,4 @@
+<%@page import="model.Species"%>
 <%@page import="model.Cell"%>
 <%@page import="model.Region"%>
 <%@page import="model.Animal"%>
@@ -59,6 +60,34 @@
   			});
   		});
   		
+  		$('#species_select').on('change', function() {
+  			var species_id = this.value;
+  			$.ajax({
+  				type:'POST',
+  				url:'animals_by_species',
+  				data:{species_id:species_id},
+  				success:function(result) {
+  					$('#table_animal').html(result);
+  					
+  				}
+  				
+  			});
+  		});
+  		
+  		$('#id_animal_search').click(function() {
+  			var animal_id = $('#animal_id_txt').val();
+  			$.ajax({
+  				type:'POST',
+  				url:'animals_by_id',
+  				data:{animal_id:animal_id},
+  				success:function(result) {
+  					$('#table_animal').html(result);
+  					
+  				}
+  				
+  			});
+  		});
+  		
   	});
   </script>
   
@@ -93,7 +122,7 @@
     <div id="animal-filter" class="col-md-8">
       <div id="filter">
         <div id="form-filter">
-        <form class="form-inline" role="form" action=<%=request.getContextPath() + "/search" %> method="post">
+        <form class="form-inline" role="form" method="post">
             <div class="from-group">
                 <select name="region" id="region_select" class="form-control">
                 <% 
@@ -117,11 +146,19 @@
                 	}
                 	%>
                 </select>
-                <select name="species" class="form-control">
-                  <option disabled="disable" selected="selected">Chọn loài</option>
+                <select name="species" id="species_select" class="form-control">
+					<% 
+                	ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
+                	for (Species species : speciesList) {
+                		
+               		 %>
+                	<option value=<%=species.getSpeciesID() %>><%=species.getSpeciesName() %></option>
+                	<%
+                	}
+                	%>
                 </select>
-                <input type="text" name="animal_id" class="form-control">
-                <input type="submit" class="btn btn-info" name="search" value="Tìm kiếm"></input>
+                <input type="text" name="animal_id" id="animal_id_txt" class="form-control">
+                <input type="button" class="btn btn-info" id="id_animal_search" value="Tìm kiếm"></input>
             </div>
         </form>
         </div>

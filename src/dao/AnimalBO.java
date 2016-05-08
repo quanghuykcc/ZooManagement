@@ -45,5 +45,9 @@ public class AnimalBO {
 	public static ArrayList<Animal> searchAnimalByCell(String cellId) {
 		return new AnimalDAO().searchAnimalByCell(cellId);
 	}
+	
+	public ArrayList<Animal> searchAnimalBySpecies(String speciesId) {
+		return new AnimalDAO().searchAnimalBySpecies(speciesId);
+	}
 	 
 }

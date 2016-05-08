@@ -23,7 +23,10 @@ public class DeleteAnimalServlet extends HttpServlet {
 			AnimalBO animalBO = new AnimalBO();
 			boolean success = animalBO.deleteAnimal(animalId);
 			if (success) {
-				response.sendRedirect(request.getContextPath() + "animal-management");
+				response.sendRedirect(request.getContextPath() + "/animal-management");
+			}
+			else {
+				response.sendRedirect(request.getContextPath() + "/update_animal");
 			}
 		}
 	}

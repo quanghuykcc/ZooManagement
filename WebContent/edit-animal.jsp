@@ -35,7 +35,7 @@ body {
 </style>
 </head>
 <body>
-	<form method="POST">
+	<form method="POST" action=<%=request.getContextPath() + "/update_animal" %>>
 		<fieldset>
 			<legend style="text-align: center;">Chỉnh sửa động vật</legend>
 			
@@ -45,8 +45,8 @@ body {
 			
 			<table id="animal-info" style="width: 100%; border: 1px">
 				<tr>
-					<td><label for="select-species">Loài</label></td>
-					<td><select id="select-species" name="select-species"
+					<td><label>Loài</label></td>
+					<td><select name="species_id"
 						class="form-control medium ">
 							<%
 								ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
@@ -67,46 +67,72 @@ body {
 					</select>(*)</td>
 				</tr>
 				<tr>
-					<td><label for="animal-id">Mã động vật</label></td>
-					<td><input style="margin-top: 10px;"
-						class="form-control medium" type="text" class="form-control"
-						id="animal-id" name="animal-id" value=<%=animal.getAnimalID()%> ></input>(*)</td>
+					<td><label>Mã động vật</label></td>
+					<td><input style="margin-top: 10px;" readonly
+						class="form-control medium" type="text" class="form-control" 
+					     name="animal_id" value=<%=animal.getAnimalID()%> ></input>(*)</td>
 				</tr>
 				<tr>
-					<td><label for="animal-name">Tên động vật</label></td>
+					<td><label>Tên động vật</label></td>
 					<td><input class="form-control medium" type="text"
-						class="form-control" id="animal-name" name="animal-name" value=<%=animal.getAnimalName() %>></input>(*)</td>
+						class="form-control" name="animal_name" value=<%=animal.getAnimalName() %>></td>
 				</tr>
 				<tr>
 					<td><label for="gender">Giới tính</label></td>
 					<td>
-						<input type="radio" name="gender" value="male">Con cái 
-						<input type="radio" name="gender" value="female">Con đực
+					<%
+						if (animal.getGender() == 0) {
+					%>
+						<input type="radio" name="gender" value="male" checked>
+					<%
+						}
+						else {
+					%>	
+						<input type="radio" name="gender" value="male">
+					<%
+						}
+					%>
+						Con cái 
+					<%
+						if (animal.getGender() == 1) {
+					%>
+						<input type="radio" name="gender" value="female" checked>
+					<%
+						}
+						else {
+					%>
+						<input type="radio" name="gender" value="female">
+					<%
+						}
+					%>
+						Con đực
+					
+					
 					</td>
 				</tr>
 				<tr>
 					<td><label for="weight"></label>Cân nặng</td>
 					<td><input style="margin-top: 10px;"
-						class="form-control medium" type="text" id="weight" name="weight"
+						class="form-control medium" type="text" name="weight"
 						class="form-control" value=<%=animal.getWeight() %>></input></td>
 				</tr>
 				<tr>
 					<td><label for="height"></label>Chiều cao</td>
 					<td><input style="margin-top: 10px;"
-						class="form-control medium" type="text" id="height" name="height"
+						class="form-control medium" type="text" name="height"
 						class="form-control" value=<%=animal.getHeight() %>></input></td>
 				</tr>
 				<tr>
-					<td><label for="select-helth">Sức khỏe</label></td>
-					<td><input type="text" class="form-control medium" name="health_status" value=<%=animal.getHealthStatus() %>></td>
+					<td><label>Sức khỏe</label></td>
+					<td><input type="text" class="form-control medium" name="health_status" style="margin-top: 10px;" value=<%=animal.getHealthStatus() %>></td>
 				</tr>
 				<tr>
-					<td><label for="desc">Mô tả</label></td>
-					<td><textarea id="desc" class="form-control medium" rows="3"
-							cols="30" name="description" value=<%=animal.getDescription() %>></textarea></td>
+					<td><label>Mô tả</label></td>
+					<td><textarea class="form-control medium" rows="3"
+							cols="30" name="description" style="margin-top: 10px;" value=<%=animal.getDescription() %>></textarea></td>
 				</tr>
 				<tr>
-					<td><label for="select-region"></label>Mã khu vực</td>
+					<td><label></label>Mã khu vực</td>
 					<td><select style="margin-top: 10px;"
 						class="form-control medium" name="region">
 							<%
@@ -125,10 +151,10 @@ body {
 									}
 								}
 							%>
-					</select>(*)</td>
+					</select><span>(*)</span></td>
 				</tr>
 				<tr>
-					<td><label for="select-cell">Mã chuồng</label></td>
+					<td><label>Mã chuồng</label></td>
 					<td><select style="margin-top: 10px;"
 						class="form-control medium" name="cell_id">
 							<%
@@ -147,16 +173,13 @@ body {
 								}
 								}
 						%>
-					</select></td>
+					</select><span>(*)</span></td>
 				</tr>
 			</table>
 			<div class="bt">
-				<input style="margin-top: 10px;" type="button"
-					class="btn btn-default btn-primary" name="delete"
-					value="Xóa động vật"> <input style="margin-top: 10px;"
-					type="button" class="btn btn-default btn-primary" name="save"
-					value="Lưu"> <input style="margin-top: 10px;" type="button"
-					class="btn btn-default btn-primary" name="cancel" value="Hủy">
+				<a href=<%=request.getContextPath() + "/delete_animal?animal_id=" + animal.getAnimalID() %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="delete" value="Xóa động vật"></a> 
+				<input style="margin-top: 10px;" type="submit" name="submit" class="btn btn-default btn-primary" name="save" value="Lưu">
+				<a href=<%=request.getContextPath() + "animal-management" %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy"></a>
 			</div>
 		</fieldset>
 	</form>

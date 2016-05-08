@@ -60,6 +60,7 @@ public class AddAnimalServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        boolean ok;
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         response.setContentType("text/html");
@@ -80,10 +81,15 @@ public class AddAnimalServlet extends HttpServlet {
         String description = request.getParameter("description");
         String cellID = request.getParameter("cell_id");
 
-        Animal animal = new Animal(animalID, animalName, speciesID, gender,
-                                   Double.parseDouble(height), Double.parseDouble(weight),
-                                   healthStatus, description, cellID);
-        boolean ok = AnimalDAO.addNewAnimal(animal);
+        Animal animal = new Animal(animalID, animalName, speciesID, gender, healthStatus, cellID);
+        if (!"".equals(weight)) animal.setWeight(Double.parseDouble(weight));
+        if (!"".equals(height)) animal.setHeight(Double.parseDouble(height));
+        if (!"".equals(description)) animal.setDescription(description);
+                                   
+//        Animal animal = new Animal(animalID, animalName, speciesID, gender,
+//                                   Double.parseDouble(height), Double.parseDouble(weight),
+//                                   healthStatus, description, cellID);
+        ok = AnimalDAO.addNewAnimal(animal);
         if (ok) {
             response.sendRedirect(request.getContextPath() + "/animal-management");
         } else {

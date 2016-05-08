@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+
+
+
 $(document).ready(function () {
     jQuery.validator.setDefaults({
         success: "valid"
@@ -17,7 +20,8 @@ $(document).ready(function () {
                 maxlength: 10,
             },
             animal_name: {
-                maxlength: 30,
+                required: true,
+                maxlength: 30
             },
             species_id: {
                 required: true,
@@ -28,6 +32,7 @@ $(document).ready(function () {
             height: {
             },
             health_status: {
+                required: true,
                 maxlength: 30
             },
             description: {
@@ -44,7 +49,8 @@ $(document).ready(function () {
                 maxlength: "<span style='color:red;'>Mã động vật tối đa là 10 ký tự</span>",
             },
             animal_name: {
-                maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>",
+                required: "<span style='color:red;'>Cần phải nhập tên động vật</span>",
+                maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>"
             },
             species_id: {
                 required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
@@ -55,7 +61,8 @@ $(document).ready(function () {
             height: {
             },
             health_status: {
-                maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>",
+                required: "<span style='color:red;'>Cần phải nhập tình trạng sức khỏe động vật</span>",
+                maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>"
             },
             description: {
                 maxlength: "<span style='color:red;'>Mô tả tối đa là 1000 ký tự</span>",
@@ -63,57 +70,6 @@ $(document).ready(function () {
             cell_id: {
                 required: "<span style='color:red;'>Cần phải chọn chuồng cho động vật</span>",
                 maxlength: "<span style='color:red;'>Mã chuồng tối đa là 10 ký tự</span>",
-            },
-        }
-    });
-});
-
-$(document).ready(function () {
-    jQuery.validator.setDefaults({
-        success: "valid"
-    });
-    $("#frm-changepass").validate({
-        ignore: [],
-        debug: false,
-        rules: {
-            animal_id: {
-                required: true,
-            },
-            animal_name: {
-                required: true,
-                minlength: 6,
-            },
-            weight: {
-                required: true,
-            },
-            height: {
-                required: true,
-            },
-            health_status: {
-                required: true,
-            },
-            description: {
-                required: true,
-            },
-        },
-        messages: {
-            animal_id: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
-            },
-            animal_name: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
-            },
-            weight: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
-            },
-            height: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
-            },
-            health_status: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
-            },
-            description: {
-                required: "<span style='color:red;'>Không được bỏ trống</span>",
             },
         }
     });

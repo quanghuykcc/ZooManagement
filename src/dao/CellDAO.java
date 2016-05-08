@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import lib.ConnectDbLib;
@@ -31,6 +32,39 @@ public class CellDAO extends AbstractDAO {
         } catch (Exception ex) {
             System.out.println("In catch scope: " + ex.getMessage());
         } finally {
+            try {
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (Exception ex) {
+                System.out.println("In finally scope: " + ex.getMessage());
+            }
+        }
+        return cellList;
+    }
+    
+    public static ArrayList<Cell> getCellByRegion(String RegionID) {
+        ArrayList<Cell> cellList = new ArrayList<>();
+        try {
+            dbAccess = new ConnectDbLib();
+            connection = dbAccess.getConnectMySQL();
+            String sql = "select * from cell where RegionID = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, RegionID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                cellList.add(new Cell(resultSet.getString("CellID"),
+                        resultSet.getString("CellName"),
+                        resultSet.getString("RegionID"),
+                        resultSet.getString("SpeciesID"),
+                        resultSet.getInt("Capacity"),
+                        resultSet.getInt("CellStatusID"),
+                        resultSet.getString("Description")));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
             try {
                 resultSet.close();
                 preparedStatement.close();

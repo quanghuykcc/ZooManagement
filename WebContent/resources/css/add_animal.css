@@ -12,15 +12,20 @@ and open the template in the editor.
     width: 60%;
 }
 
-tr,
 td {
     padding: 10px;
 }
+
+td label {
+    margin: 0;
+    display: block;
+}
+
 .in-row {
     display: inline;
     padding: 4px;
 }
 
-label {
+/*label {
     margin: auto;
-}
+}*/

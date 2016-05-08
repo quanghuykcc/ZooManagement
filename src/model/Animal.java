@@ -15,6 +15,16 @@ public class Animal {
 	private String regionName;
 	private String regionID;
 	
+        public Animal(String animalID, String animalName, String speciesID, int gender, String healthStatus,String cellID) {
+		super();
+		this.animalID = animalID;
+		this.animalName = animalName;
+		this.speciesID = speciesID;
+		this.gender = gender;
+                this.healthStatus = healthStatus;
+		this.cellID = cellID;
+	}                
+        
 	public Animal(String animalID, String animalName, String speciesID, int gender, double height, double weight,
 			String healthStatus, String description, String cellID, String regionName, String regionID) {
 		super();

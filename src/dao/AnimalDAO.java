@@ -1,7 +1,7 @@
 package dao;
 
+import java.sql.Types;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Animal;
 import model.Cell;
@@ -203,16 +203,33 @@ public class AnimalDAO extends AbstractDAO {
         try {
             dbAccess = new ConnectDbLib();
             connection = dbAccess.getConnectMySQL();
-            String sql = "INSERT INTO animal (AnimalID, AnimalName, SpeciesID, Gender, Weight, Height, HealthStatus, Description, CellID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO animal (AnimalID, AnimalName, SpeciesID, Gender, "
+                                           + "Weight, Height, HealthStatus, Description, CellID) "
+                       + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
+            
             preparedStatement.setString(1, newAnimal.getAnimalID());
             preparedStatement.setString(2, newAnimal.getAnimalName());
             preparedStatement.setString(3, newAnimal.getSpeciesID());
             preparedStatement.setInt(4, newAnimal.getGender());
-            preparedStatement.setDouble(5, newAnimal.getWeight());
-            preparedStatement.setDouble(6, newAnimal.getHeight());
+            
+            if (newAnimal.getWeight() != 0.0)
+                preparedStatement.setDouble(5, newAnimal.getWeight());
+            else 
+                preparedStatement.setNull(5, Types.DOUBLE);
+            
+            if (newAnimal.getHeight() != 0.0)
+                preparedStatement.setDouble(6, newAnimal.getHeight());
+            else 
+                preparedStatement.setNull(6, Types.DOUBLE);
+            
             preparedStatement.setString(7, newAnimal.getHealthStatus());
-            preparedStatement.setString(8, newAnimal.getDescription());
+                                   
+            if (null != newAnimal.getDescription()) 
+                preparedStatement.setString(8, newAnimal.getDescription());
+            else 
+                preparedStatement.setNull(8, Types.VARCHAR);
+
             preparedStatement.setString(9, newAnimal.getCellID());
 
             ok = (preparedStatement.executeUpdate() == 1);

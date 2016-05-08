@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.Animal;
 import dao.AnimalBO;
 
-@WebServlet("/search")
-public class SearchAnimal extends HttpServlet {
+@WebServlet("/animals_by_id")
+public class SearchAnimalByIDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public SearchAnimal() {
+    public SearchAnimalByIDServlet() {
         super();
     }
 
@@ -27,19 +27,14 @@ public class SearchAnimal extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		String animalId = request.getParameter("animal_id");	
 		response.setContentType("text/html");
-		
-		String animalId = request.getParameter("animal_id");
-		AnimalBO animalBO = new AnimalBO();
-		ArrayList<Animal> animalList = animalBO.searchAnimalById(animalId);
-		for (Animal animal : animalList) {
-			System.out.println(animal.toString());
-		}
+		response.setCharacterEncoding("utf-8");
+		String cellId = request.getParameter("cell_id");
+		ArrayList<Animal> animalList = new AnimalBO().searchAnimalById(animalId);
 		request.setAttribute("animal_list", animalList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("qldv-main.jsp");	
-		dispatcher.forward(request, response);	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("animal_table.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

@@ -1,3 +1,5 @@
+<%@page import="dao.UserDAO"%>
+<%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/inc/header.jsp" %>
@@ -9,36 +11,45 @@
 </style>
 </head>
 <body >
+	<%
+		User sUser =(User) session.getAttribute("sUser");
+		UserDAO userDAO = new UserDAO();
+		User u = userDAO.getEmployeeByID(sUser.getEmployeeID());
+	%>
 	<div class="col-md-7" >
 	<label style="margin-left: 560px; margin-top: 20px; font-size: 20px;">Thông tin nhân viên</label>
 	<table class="table table-bordered">
 		<tr>
 			<td>Tên đăng nhập</td>
-			<td>vietnhut</td>
+			<td><%=sUser.getUsername() %></td>
 		</tr>
 		<tr>
 			<td>Mã nhân viên</td>
-			<td>AA0123</td>
+			<td><%=u.getEmployeeID() %></td>
 		</tr>
 		<tr>
 			<td>Tên nhân viên</td>
-			<td>Lê Viết Nhựt</td>
+			<td><%=u.getEmployeeName() %></td>
 		</tr>
 		<tr>
 			<td>Giới tính</td>
-			<td>Nam</td>
+			<%if(u.getGender()==1){%>
+				<td>Nam</td>	
+			<%}else if(u.getGender()==0){%>
+				<td>Nữ</td>
+			<%} %>
 		</tr>
 		<tr>
 			<td>Ngày sinh</td>
-			<td>6/10/1994</td>
+			<td><%=u.getBirthday() %></td>
 		</tr>
 		<tr>
 			<td>Số điện thoại</td>
-			<td>01687184516</td>
+			<td><%=u.getPhone() %></td>
 		</tr>
 		<tr>
 			<td>Địa chỉ</td>
-			<td>Tam Đàn Phú Ninh Quảng Nam</td>
+			<td><%=u.getAddress() %></td>
 		</tr>
 	</table>
 	<div style="margin-left: 300px;">

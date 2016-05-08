@@ -6,20 +6,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
     pageEncoding="UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
-<!DOCTYPE html>
-<html lang="vi">
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js" ></script>
-        <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
+<%@include file="/inc/header.jsp" %>
         <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/add_animal.js" ></script>
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/add_animal.css" >
-        <meta charset="UTF-8">
         <title>Thêm động vật</title>
     </head>
-    <body>
+    <body style="margin-left: auto; width: 880px;">
         <div id="add-animal-form">
         <form method="POST" action="AddAnimalServlet" id="frm-add-animal">
             <fieldset>
@@ -48,10 +40,13 @@
                         <td><label for="animal-name">Tên động vật (*)</label></td>
                         <td><input type="text" class="form-control" id="animal_name" name="animal_name"></td>
                     </tr>
-                    <tr>
-                        <td><label for="gender">Giới tính (*)</label></td>
-                        <td><label><input type="checkbox" id="gender" class="in-row" name="gender" class="form-control"><p class="in-row">Cái</p></label></td>
-                    </tr>
+                   <tr>
+						<td><label for="gender">Giới tính</label></td>
+						<td>
+						<input type="radio" name="gender" checked="checked" value="Nam">Đực
+						<input type="radio" name="gender" value="Nữ"> Cái
+						</td>
+		          </tr>
                     <tr>
                         <td><label for="weight">Cân nặng</label></td>
                         <td><input type="number" id="weight" name="weight" class="form-control"></td>
@@ -92,11 +87,67 @@
                             </select></td>
                     </tr>
                 </table>
-                <input type="button" class="btn btn-default" name="erase" value="Xóa hết">
-                <input type="submit" class="btn btn-default" name="submit" value="Thêm">
-                <a href=<%=request.getContextPath() + "/animal-management"%>><input type="button" class="btn btn-default" name="cancel" value="Hủy"></a>
+                <input type="button" class="btn btn-default btn btn-default btn-primary" name="erase" value="Xóa hết">
+                <input type="submit" class="btn btn-default btn btn-default btn-primary" name="submit" value="Thêm">
+                <a href=<%=request.getContextPath() + "/animal-management"%>><input type="button" class="btn btn-default btn btn-default btn-primary" name="cancel" value="Hủy"></a>
             </fieldset>
         </form>
         </div>
+         <script type="text/javascript">
+			$(document).ready(function(){
+				jQuery.validator.setDefaults({
+					  success: "valid"
+				});
+				$("#frm-changepass").validate({
+					ignore : [],
+					debug : false,
+					rules: {
+						animal_id: {
+							required: true,
+						},
+						animal_name: {
+							required: true,
+							minlength: 6,
+						},
+						weight: {
+							required: true,
+							
+						},
+						height: {
+							required: true,
+							
+						},
+						health_status: {
+							required: true,
+							
+						},
+						description: {
+							required: true,
+							
+						},
+					},
+					messages: {
+						animal_id: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						animal_name: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						weight: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						height: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						health_status: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+						description: {
+							required: "<span style='color:red;'>Không được bỏ trống</span>",
+						},
+					}
+				});
+			});
+			</script>
     </body>
 </html>

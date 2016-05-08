@@ -37,12 +37,12 @@
 
       </div>
     </div>
-    <div id="navitication" class="col-md-4">
+    <div id="navitication" class="col-md-3">
       <ul>
         <li><a href="#">Quản lý động vật</a>
           <ul>
             <li><a href="#">Khu vực</a></li>
-            <li><a href="#">Chuồng</a></li>
+            <li><a href="<%=request.getContextPath()%>/animal-management">Chuồng</a></li>
             <li><a href=<%=request.getContextPath() + "/animal-management" %>>Động vật</a></li>
           </ul>
         </li>

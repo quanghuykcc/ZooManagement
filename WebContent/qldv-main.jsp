@@ -1,3 +1,6 @@
+<%@page import="model.Species"%>
+<%@page import="model.Cell"%>
+<%@page import="model.Region"%>
 <%@page import="model.Animal"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -126,18 +129,41 @@
         <div id="form-filter">
         <form class="form-inline" role="form" action=<%=request.getContextPath() + "/search" %> method="post">
             <div class="from-group">
-                <select name="region" class="form-control">
-                  <option disabled="disable">Chọn khu vực</option>
-                  <option>A</option>
+                <select name="region" id="region_select" class="form-control">
+                <% 
+                	ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
+                	for (Region region : regionList) {
+                		
+                %>
+                	<option value=<%=region.getRegionID() %>><%=region.getRegionName() %></option>
+                <%
+                	}
+                %>
                 </select>
-                <select name="cell" class="form-control">
-                  <option disabled="disable" selected="selected">Chọn chuồng</option>
+                <select name="cell" id="cell_select" class="form-control">
+                  	<% 
+                	ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
+                	for (Cell cell : cellList) {
+                		
+               		 %>
+                	<option value=<%=cell.getCellID() %>><%=cell.getCellID() %></option>
+                	<%
+                	}
+                	%>
                 </select>
-                <select name="species" class="form-control">
-                  <option disabled="disable" selected="selected">Chọn loài</option>
+                <select name="species" id="species_select" class="form-control">
+					<% 
+                	ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
+                	for (Species species : speciesList) {
+                		
+               		 %>
+                	<option value=<%=species.getSpeciesID() %>><%=species.getSpeciesName() %></option>
+                	<%
+                	}
+                	%>
                 </select>
-                <input type="text" name="animal_id" class="form-control" value="<%=(key_search==null)? "":key_search%>">
-                <input type="submit" class="btn btn-info" name="search" value="Tìm kiếm"></input>
+                <input type="text" name="animal_id" id="animal_id_txt" class="form-control">
+                <input type="button" class="btn btn-info" id="id_animal_search" value="Tìm kiếm"></input>
             </div>
         </form>
         </div>
@@ -148,6 +174,7 @@
         </div>
       </div>
       <br>
+      <div id="table_animal">
       <table id="animal-info" class="table table-striped table-responsive" style="width: 100%">
         <tr>
           <th>Mã ĐV</th>
@@ -180,6 +207,7 @@
         	</tr>
         <%} %>
       </table>
+       </div>
     </div>
   </div>
 </body>

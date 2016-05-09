@@ -13,6 +13,8 @@
   <script type="text/javascript" src="<%=request.getContextPath()%>/lib/jquery.validate.js" ></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/common.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/menu-sidebar.css">
   <style>
     table, th, td {
       border: 1px solid black;
@@ -95,27 +97,9 @@
   <title>Quản lý động vật</title>
 </head>
 <body>
-  <div>
-    <div id="head-navi-bar">
-
+  <div class="container">
     <jsp:include page= "/inc/head-navi-bar.jsp" />
-    </div>
-    <div id="navitication" class="col-md-4">
-      <ul>
-        <li><a href="#">Quản lý động vật</a>
-          <ul>
-            <li><a href="#">Khu vực</a></li>
-            <li><a href="#">Chuồng</a></li>
-            <li><a href=<%=request.getContextPath() + "/animal-management" %>>Động vật</a></li>
-          </ul>
-        </li>
-        <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>
-        </li>
-        <li><a href="#">Quản lý thức ăn</a>
-        </li>
-        <li><a href="#">Quản lý vé</a></li>
-      </ul>
-    </div>
+    <jsp:include page= "/inc/menu-sidebar.jsp" />
     <div id="animal-filter" class="col-md-8">
       <div id="filter">
         <div id="form-filter">
@@ -155,13 +139,13 @@
                 	%>
                 </select>
                 <input type="text" name="animal_id" id="animal_id_txt" class="form-control">
-                <input type="button" class="btn btn-info" id="id_animal_search" value="Tìm kiếm"></input>
+                <span class="btn btn-info glyphicon glyphicon-search" id="id_animal_search"></span>
             </div>
         </form>
         </div>
         <div id="add-btn">
         	<a href=<%=request.getContextPath() + "/add-animal" %>>
-        		<input type="button" class="btn btn-info" name="add" value="Thêm động vật" onClick=""></input>
+        		<span class="btn btn-info glyphicon glyphicon glyphicon-plus" name="add" onClick=""></span>
         	</a>
         </div>
       </div>

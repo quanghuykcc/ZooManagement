@@ -3,8 +3,8 @@
 <%@page import="model.Region"%>
 <%@page import="model.Animal"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -30,8 +30,11 @@
     #add-btn {
         float: right;
     }
+    li{
+    	margin-top: 10px;
+    }
   </style>
-  
+
   <script type="text/javascript">
   	$(document).ready(function() {
   		$('#region_select').on('change', function() {
@@ -42,12 +45,12 @@
   				data:{region_id:region_id},
   				success:function(result) {
   					$('#table_animal').html(result);
-  					
+
   				}
-  				
+
   			});
   		});
-  		
+
   		$('#cell_select').on('change', function() {
   			var cell_id = this.value;
   			$.ajax({
@@ -56,12 +59,12 @@
   				data:{cell_id:cell_id},
   				success:function(result) {
   					$('#table_animal').html(result);
-  					
+
   				}
-  				
+
   			});
   		});
-  		
+
   		$('#species_select').on('change', function() {
   			var species_id = this.value;
   			$.ajax({
@@ -70,12 +73,12 @@
   				data:{species_id:species_id},
   				success:function(result) {
   					$('#table_animal').html(result);
-  					
+
   				}
-  				
+
   			});
   		});
-  		
+
   		$('#id_animal_search').click(function() {
   			var animal_id = $('#animal_id_txt').val();
   			$.ajax({
@@ -84,32 +87,34 @@
   				data:{animal_id:animal_id},
   				success:function(result) {
   					$('#table_animal').html(result);
-  					
+
   				}
-  				
+
   			});
   		});
-  		
+
   	});
   </script>
-  
-  
   <title>Quản lý động vật</title>
 </head>
 <body>
+    <%
+		String key_search = (String) request.getAttribute("key_search");
+
+	%>
   <div class="container">
     <jsp:include page= "/inc/head-navi-bar.jsp" />
     <jsp:include page= "/inc/menu-sidebar.jsp" />
     <div id="animal-filter" class="col-md-8">
       <div id="filter">
         <div id="form-filter">
-        <form class="form-inline" role="form" method="post">
+        <form class="form-inline" role="form" action=<%=request.getContextPath() + "/search" %> method="post">
             <div class="from-group">
                 <select name="region" id="region_select" class="form-control">
-                <% 
+                <%
                 	ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
                 	for (Region region : regionList) {
-                		
+
                 %>
                 	<option value=<%=region.getRegionID() %>><%=region.getRegionName() %></option>
                 <%
@@ -117,10 +122,10 @@
                 %>
                 </select>
                 <select name="cell" id="cell_select" class="form-control">
-                  	<% 
+                  	<%
                 	ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
                 	for (Cell cell : cellList) {
-                		
+
                		 %>
                 	<option value=<%=cell.getCellID() %>><%=cell.getCellID() %></option>
                 	<%
@@ -128,10 +133,10 @@
                 	%>
                 </select>
                 <select name="species" id="species_select" class="form-control">
-					<% 
+					<%
                 	ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
                 	for (Species species : speciesList) {
-                		
+
                		 %>
                 	<option value=<%=species.getSpeciesID() %>><%=species.getSpeciesName() %></option>
                 	<%
@@ -163,6 +168,7 @@
         </tr>
         <%
         	ArrayList<Animal> animalList = (ArrayList<Animal>) request.getAttribute("animal_list");
+        	if(animalList.size()>0){
         	for (Animal animal : animalList) {
         %>
         <tr>
@@ -172,13 +178,17 @@
           <td><%=animal.getRegionID()%></td>
           <td><%=animal.getCellID()%></td>
           <td><%=animal.getHealthStatus()%></td>
-          <td><a href=<%=request.getContextPath() + "/update_animal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
+          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
         </tr>
         <%
-        	}
+        	}}else{
         %>
+        	<tr>
+        		<td colspan="7" style="text-align: center; color:red;">Không tìm thấy động vật nào thỏa mãn điều kiện trên</td>
+        	</tr>
+        <%} %>
       </table>
-      </div>
+       </div>
     </div>
   </div>
 </body>

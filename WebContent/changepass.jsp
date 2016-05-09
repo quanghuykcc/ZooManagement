@@ -1,3 +1,4 @@
+<%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@include file="/inc/header.jsp" %>
@@ -14,6 +15,10 @@
 </style>
 </head>
 <body>
+	<%
+		String msg = request.getParameter("msg");
+		User sUser =(User) session.getAttribute("sUser");
+	%>
 	 <script type="text/javascript">
 			$(document).ready(function(){
 				jQuery.validator.setDefaults({
@@ -55,9 +60,14 @@
   <form method="POST" action="<%=request.getContextPath()%>/change-pass" id="frm-changepass">
   <fieldset>
   <legend style="text-align: center;">Đổi mật khẩu</legend>
-    Tên đăng nhập:<br>
+  <%if("0".equals(msg)){%>
+  	<span style="color: red; font-weight: bold;">
+  		<p>Mật khẩu cũ chưa đúng.</p>
+  	</span>
+  	<%} %>
+    <label>Tên đăng nhập : <span style="color:blue;"><%=sUser.getUsername()%></span></label><br>
     <div class="form-group">
-    <label>Mật khẩu cũ:</label>
+    <label>Mật khẩu cũ: </label>
     <input class="form-control" type="password" name="old_password">
     </div>
     <div class="form-group">
@@ -68,7 +78,10 @@
     <label>Xác nhận mật khẩu:</label>
     <input class="form-control" type="password" name="comfirm_password">
     </div>
-    <input type="submit" value="Đăng nhập" name="submit" class="btn btn-default btn-primary">
+    <input type="submit" value="Thay đổi" name="submit" class="btn btn-default btn-primary">
+    <a href="<%=request.getContextPath()%>/info-user"><input style="font-style: normal;"
+				type="button" name="quit" class="btn btn-default btn-primary"
+				value="Thoát" /> </a>
     </fieldset>
     </form>
 </body>

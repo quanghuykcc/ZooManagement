@@ -29,8 +29,9 @@ public class SearchAnimalByIDServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		String animalId = request.getParameter("animal_id");	
 		response.setContentType("text/html");
+		request.setAttribute("key_search", animalId);
 		response.setCharacterEncoding("utf-8");
-		String cellId = request.getParameter("cell_id");
+		request.setAttribute("key_search", animalId);
 		ArrayList<Animal> animalList = new AnimalBO().searchAnimalById(animalId);
 		request.setAttribute("animal_list", animalList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("animal_table.jsp");

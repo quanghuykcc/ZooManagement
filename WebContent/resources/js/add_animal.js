@@ -38,6 +38,9 @@ $(document).ready(function() {
                 required: true,
                 maxlength: 10,
             },
+            gender: {
+                required: true,
+            },
             weight: {},
             height: {},
             health_status: {
@@ -64,6 +67,9 @@ $(document).ready(function() {
             species_id: {
                 required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
                 maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
+            },
+            gender: {
+                required : "<p style='color:red;'>Vui lòng chọn giới tính</p>",
             },
             weight: {},
             height: {},

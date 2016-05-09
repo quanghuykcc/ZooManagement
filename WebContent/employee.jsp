@@ -1,6 +1,7 @@
+<%@page import="dao.UserDAO"%>
 <%@page import="model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+    pageEncoding="utf-8"%>
 <%@include file="/inc/header.jsp"%>
 <title>Quản lý nhân viên</title>
 <style>
@@ -31,7 +32,9 @@ span {
 </head>
 <body>
 	<%
-		User user = (User) session.getAttribute("sUser");
+		UserDAO userDAO = new UserDAO();
+		User sUser = (User) session.getAttribute("sUser");
+		User user = userDAO.getEmployeeByID(sUser.getEmployeeID());
 		if (user != null) {
 	%>
 	<script type="text/javascript">
@@ -85,7 +88,7 @@ span {
 	<form action="<%=request.getContextPath()%>/employee-management"
 		method="POST">
 		<fieldset>
-			<legend style='color:'>Thông tin nhân viên</legend>
+			<legend style='text-align: center;'>Thông tin nhân viên</legend>
 			Tên đăng nhập: <span style="font-weight: bold; color: blue;">
 				<%=user.getUsername()%></span><br> Quyền quản trị: <span
 				style="font-weight: bold; color: blue;"> <%=user.getUserTypeName()%></span>
@@ -124,11 +127,10 @@ span {
 				<br />
 			</div>
 			<input type="submit" name="submit"
-				class="btn btn-default btn-primary" value="Cập nhật"> <input
+				class="btn btn-default btn-primary" value="Cập nhật"> 
+			<a href="<%=request.getContextPath()%>/info-user"><input style="font-style: normal;"
 				type="button" name="quit" class="btn btn-default btn-primary"
-				value="Thoát" /> <span><a
-				href="<%=request.getContextPath()%>/change-pass">Thay đổi mật
-					khấu ?</a></span>
+				value="Thoát" /> </a>
 		</fieldset>
 	</form>
 	<%

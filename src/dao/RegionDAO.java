@@ -8,7 +8,7 @@ import model.Region;
 public class RegionDAO extends AbstractDAO {
 
     public RegionDAO() {
-        
+
     }
 
     public static ArrayList<Region> getAllRegions() {

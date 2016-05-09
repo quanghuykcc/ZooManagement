@@ -8,11 +8,10 @@
                 <li><a href=<%=request.getContextPath() + "/animal-management"%>>Động vật</a></li>
             </ul>
         </li>
-        <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>
+        <li><a href="<%=request.getContextPath()%>/info-user">Quản lý nhân viên</a>
         </li>
         <li><a href="#">Quản lý thức ăn</a>
         </li>
         <li><a href="#">Quản lý vé</a></li>
     </ul>
 </div>
-

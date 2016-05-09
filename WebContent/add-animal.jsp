@@ -1,4 +1,3 @@
-<%@page import="org.json.*"%>
 <%@page import="dao.CellDAO"%>
 <%@page import="dao.RegionDAO"%>
 <%@page import="dao.SpeciesDAO"%>
@@ -56,23 +55,24 @@
                             </tr>
                             <tr>
                                 <td><label for="gender">Giới tính (*)</label></td>
-                                <td><label><input type="checkbox" id="gender" class="in-row" name="gender" class="form-control"><p class="in-row">Cái</p></label></td>
+                                <td><label class="in-row" form="gender"><input type="radio" name="gender" id="gender" value="female">Con cái</label>
+        							<label class="in-row" form="gender"><input type="radio" name="gender" id="gender" value="male">Con đực</label></td>
                             </tr>
                             <tr>
                                 <td><label for="weight">Cân nặng</label></td>
-                                <td><input type="number" id="weight" name="weight" class="form-control"></td>
+                                <td><input type="number" id="weight" name="weight" class="form-control medium"></td>
                             </tr>
                             <tr>
                                 <td><label for="height">Chiều cao</label></td>
-                                <td><input type="number" id="height" name="height" class="form-control"></td>
+                                <td><input type="number" id="height" name="height" class="form-control medium"></td>
                             </tr>
                             <tr>
                                 <td><label for="health_status">Sức khỏe</label></td>
-                                <td><input type="text" name="health_status" class="form-control" id="health_status"></td>
+                                <td><input type="text" name="health_status" class="form-control medium" id="health_status"></td>
                             </tr>
                             <tr>
                                 <td><label for="description">Mô tả</label></td>
-                                <td><textarea id="description" class="form-control" rows="3" cols="30" name="description"></textarea></td>
+                                <td><textarea id="description" class="form-control medium" rows="3" cols="30" name="description"></textarea></td>
                             </tr>
                             <tr>
                                 <td><label for="region_id">Mã khu vực (*)</label></td>
@@ -80,7 +80,7 @@
                                         <%
                                             ArrayList<Region> regionList = RegionDAO.getAllRegions();
                                             for (Region region : regionList) {%>
-                                        <option value=<%=region.getRegionID()%>><%=region.getRegionID()%></option>
+                                                <option value=<%=region.getRegionID()%>><%=region.getRegionName()%></option>
                                         <%
                                             }
                                         %>

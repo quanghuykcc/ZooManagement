@@ -1,13 +1,24 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+function cell_on_region() {
+    regionID = $("#region_id").val();
+    $.get("CellJsonServlet", {
+        regionID: regionID
+    }, function(responseJSON) {
+        var $cell_select = $("#cell_id");
+        $cell_select.find('option').remove();
+        $.each(responseJSON, function(key, value) {
+            $cell_select.prepend($('<option></option>').attr("value", key).text(value));
+        });
+    });
+}
 
 
-
-$(document).ready(function () {
+$(document).ready(function() {
     jQuery.validator.setDefaults({
         success: "valid"
     });
@@ -27,10 +38,8 @@ $(document).ready(function () {
                 required: true,
                 maxlength: 10,
             },
-            weight: {
-            },
-            height: {
-            },
+            weight: {},
+            height: {},
             health_status: {
                 required: true,
                 maxlength: 30
@@ -56,10 +65,8 @@ $(document).ready(function () {
                 required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
                 maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
             },
-            weight: {
-            },
-            height: {
-            },
+            weight: {},
+            height: {},
             health_status: {
                 required: "<span style='color:red;'>Cần phải nhập tình trạng sức khỏe động vật</span>",
                 maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>"
@@ -73,4 +80,7 @@ $(document).ready(function () {
             },
         }
     });
+
+    cell_on_region();
+    $("#region_id").change(cell_on_region);
 });

@@ -18,26 +18,10 @@
         <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/add_animal.js" ></script>
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/add_animal.css" >
         <meta charset="UTF-8">
-
-        <script>
-            function cell_on_region() {
-                regionID = $("#region_id").val();
-                $.get("CellJsonServlet", {regionID: regionID}, function (responseJSON) {
-                    var $cell_select = $("#cell_id");
-                    $cell_select.find('option').remove();
-                    $.each(responseJSON, function (key, value) {
-                        $cell_select.prepend($('<option></option>').attr("value", key).text(value));
-                    });
-                });
-            };
-            $(document).ready(function() {
-                cell_on_region();
-                $("#region_id").change(cell_on_region);
-            });
-        </script>
         <title>Thêm động vật</title>
     </head>
     <body>
+        <jsp:include page= "/inc/head-navi-bar.jsp" />
         <div id="add-animal-form">
             <form method="POST" action="AddAnimalServlet" id="frm-add-animal">
                 <fieldset>

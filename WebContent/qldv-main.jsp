@@ -98,10 +98,7 @@
   <div>
     <div id="head-navi-bar">
 
-      <div><h2>TRANG CHỦ > QUẢN LÝ ĐỘNG VẬT > ĐỘNG VẬT</h2></div>
-      <div>
-
-      </div>
+    <jsp:include page= "/inc/head-navi-bar.jsp" />
     </div>
     <div id="navitication" class="col-md-4">
       <ul>

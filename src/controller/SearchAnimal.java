@@ -37,6 +37,7 @@ public class SearchAnimal extends HttpServlet {
 		for (Animal animal : animalList) {
 			System.out.println(animal.toString());
 		}
+		request.setAttribute("key_search", animalId);
 		request.setAttribute("animal_list", animalList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("qldv-main.jsp");	
 		dispatcher.forward(request, response);	

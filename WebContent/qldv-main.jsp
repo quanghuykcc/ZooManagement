@@ -25,14 +25,21 @@
     #add-btn {
         float: right;
     }
+    li{
+    	margin-top: 10px;
+    }
   </style>
   <title>Quản lý động vật</title>
 </head>
 <body>
+	<%
+		String key_search =(String) request.getAttribute("key_search");
+		
+	%>
   <div>
     <div id="head-navi-bar">
 
-      <div><h2>TRANG CHỦ > QUẢN LÝ ĐỘNG VẬT > ĐỘNG VẬT</h2></div>
+      <div style="margin-left: 30px;"><h3>TRANG CHỦ > QUẢN LÝ ĐỘNG VẬT > ĐỘNG VẬT</h3></div>
       <div>
 
       </div>
@@ -68,7 +75,7 @@
                 <select name="species" class="form-control">
                   <option disabled="disable" selected="selected">Chọn loài</option>
                 </select>
-                <input type="text" name="animal_id" class="form-control">
+                <input type="text" name="animal_id" class="form-control" value="<%=(key_search==null)? "":key_search%>">
                 <input type="submit" class="btn btn-info" name="search" value="Tìm kiếm"></input>
             </div>
         </form>
@@ -92,6 +99,7 @@
         </tr>
         <%
         	ArrayList<Animal> animalList = (ArrayList<Animal>) request.getAttribute("animal_list");
+        	if(animalList.size()>0){
         	for (Animal animal : animalList) {
         %>
         <tr>
@@ -104,8 +112,12 @@
           <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
         </tr>
         <%
-        	}
+        	}}else{
         %>
+        	<tr>
+        		<td colspan="7" style="text-align: center; color:red;">Không tìm thấy động vật nào thỏa mãn điều kiện trên</td>
+        	</tr>
+        <%} %>
       </table>
     </div>
   </div>

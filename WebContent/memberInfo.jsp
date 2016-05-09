@@ -1,7 +1,7 @@
 <%@page import="dao.UserDAO"%>
 <%@page import="model.User"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@include file="/inc/header.jsp" %>
 <title>Thông tin cá nhân</title>
 <style>
@@ -53,8 +53,11 @@
 		</tr>
 	</table>
 	<div style="margin-left: 300px;">
-		<a href="<%=request.getContextPath()%>/employee-management"><input type="submit" value="Chỉnh sửa" name="submit" class="btn btn-default btn-primary"/></a><br/>
-		<span><a href="<%=request.getContextPath()%>/change-pass">Thay đổi mật khấu ?</a></span>
+		<a href="<%=request.getContextPath()%>/employee-management"><input type="button" value="Chỉnh sửa" name="submit" class="btn btn-default btn-primary"/></a>
+		<a href="<%=request.getContextPath()%>/info-user"><input style="font-style: normal;"
+				type="button" name="quit" class="btn btn-default btn-primary"
+				value="Thoát" /> </a><br/>
+		<span><a  style="margin-top: 10px;" href="<%=request.getContextPath()%>/change-pass">Thay đổi mật khấu ?</a></span>
 	</div>
 	</div>
 </body>

@@ -56,9 +56,6 @@ public class UpdateAnimal extends HttpServlet {
 			String cellID = request.getParameter("cell_id");
 			
 			Animal animal = new Animal(animalID, animalName, speciesID, gender, Double.parseDouble(height), Double.parseDouble(weight), healthStatus, description, cellID);
-			
-			System.out.println(animal.toString());
-			
 			boolean ok = new AnimalDAO().updateAnimal(animal);
 			if (ok) {
 				response.sendRedirect(request.getContextPath() + "/animal-management");

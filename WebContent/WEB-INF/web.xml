@@ -33,6 +33,14 @@
     <servlet-name>ChangePass</servlet-name>
     <url-pattern>/change-pass</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ShowInfoUser</servlet-name>
+    <servlet-class>controller.ShowInfoUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowInfoUser</servlet-name>
+    <url-pattern>/info-user</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>checklogin</welcome-file>
   </welcome-file-list>

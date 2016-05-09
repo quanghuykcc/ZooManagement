@@ -63,7 +63,7 @@
 			String mgs = request.getParameter("msg");
 			if("0".equals(mgs)){
 		%>
-		<p style="color:red;">Sai username hoặc password</p>
+		<p style="color:red;font-weight: bold;margin-top: 10px;">Sai username hoặc password</p>
 		<%}%>
   </form>
 </body>

@@ -178,7 +178,7 @@
           <td><%=animal.getRegionID()%></td>
           <td><%=animal.getCellID()%></td>
           <td><%=animal.getHealthStatus()%></td>
-          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
+          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info glyphicon glyphicon-edit"></button></a></td>
         </tr>
         <%
         	}}else{

@@ -11,95 +11,28 @@
 	src="<%=request.getContextPath()%>/lib/jquery-2.1.1.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/lib/jquery.validate.js"></script>
-<script type="text/javascript">
-		$(document).ready(function(){
-			jQuery.validator.setDefaults({
-				success: "valid"
-			});
-			$("#frm-edit-animal").validate({
-				ignore : [],
-				debug : false,
-				rules: {
-					animal_id: {
-						required: true,
-						maxlength: 10,
-					},
-					animal_name: {
-						maxlength: 30,
-					},
-					
-					species_id: {
-						required: true,
-						maxlength: 10,
-					},
-					
-					weight: {
-					},
-					height: {
-					},
-					health_status: {
-						maxlength: 30
-					},
-					description: {
-						maxlength: 1000
-					},
-					cell_id: {
-						required: true,
-						maxlength: 10
-					},
-				},
-				messages: {
-					
-					animal_id: {
-						required: "<span style='color:red;'>Cần phải nhập mã động vật</span>",
-						maxlength: "<span style='color:red;'>Mã động vật tối đa là 10 ký tự</span>",
-					},
-					animal_name: {
-						maxlength: "<span style='color:red;'>Tên động vật tối đa là 30 ký tự</span>",
-					},
-					
-					species_id: {
-						required: "<span style='color:red;'>Cần phải chọn loài cho động vật</span>",
-						maxlength: "<span style='color:red;'>Mã loài tối đa là 10 ký tự</span>",
-					},
-					
-					weight: {
-					},
-					height: {
-					},
-					health_status: {
-						maxlength: "<span style='color:red;'>Tình trạng sức khỏe tối đa là 30 ký tự</span>",
-					},
-					description: {
-						maxlength: "<span style='color:red;'>Mô tả tối đa là 1000 ký tự</span>",
-					},
-					cell_id: {
-						required: "<span style='color:red;'>Cần phải chọn chuồng cho động vật</span>",
-						maxlength: "<span style='color:red;'>Mã chuồng tối đa là 10 ký tự</span>",
-					},
-				}
-			});
-});
-	</script>	
+	<script type="text/javascript">
+	$(document).ready(
+		function() {
+			 
+		}
+	);
 	
-	
+	</script>
 <style>
 body {
-	width: 700px;
+	width: 500px;
 	margin: auto;
 }
 
 .medium {
-	width: 400px;
+	width: 350px;
 }
 
-.bt {
-	margin-left: 150px;
-}
 </style>
 </head>
 <body>
-	<form method="POST" action=<%=request.getContextPath() + "/update_animal"%> id="frm-edit-animal">
+	<form method="POST" action=<%=request.getContextPath() + "/UpdateAnimal" %> id="frm-edit-animal">
 		<fieldset>
 			<legend style="text-align: center;">Chỉnh sửa động vật</legend>
 			
@@ -139,7 +72,7 @@ body {
 				<tr>
 					<td><label>Tên động vật</label></td>
 					<td><input class="form-control medium" type="text"
-						class="form-control" name="animal_name" value=<%=animal.getAnimalName() %>></td>
+						class="form-control medium" name="animal_name" value=<%=animal.getAnimalName() %>></td>
 				</tr>
 				<tr>
 					<td><label for="gender">Giới tính</label></td>
@@ -175,13 +108,13 @@ body {
 					</td>
 				</tr>
 				<tr>
-					<td><label for="weight"></label>Cân nặng</td>
+					<td><label for="weight">Cân nặng</label></td>
 					<td><input style="margin-top: 10px;"
 						class="form-control medium" type="text" name="weight"
 						class="form-control" value=<%=animal.getWeight() %>></input></td>
 				</tr>
 				<tr>
-					<td><label for="height"></label>Chiều cao</td>
+					<td><label for="height">Chiều cao</label></td>
 					<td><input style="margin-top: 10px;"
 						class="form-control medium" type="text" name="height"
 						class="form-control" value=<%=animal.getHeight() %>></input></td>
@@ -196,7 +129,7 @@ body {
 							cols="30" name="description" style="margin-top: 10px;" value=<%=animal.getDescription() %>></textarea></td>
 				</tr>
 				<tr>
-					<td><label></label>Mã khu vực</td>
+					<td><label>Mã khu vực</label ></td>
 					<td><select style="margin-top: 10px;"
 						class="form-control medium" name="region">
 							<%
@@ -243,7 +176,7 @@ body {
 			<div class="bt">
 				<a href=<%=request.getContextPath() + "/delete_animal?animal_id=" + animal.getAnimalID() %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="delete" value="Xóa động vật"></a> 
 				<input style="margin-top: 10px;" type="submit" name="submit" class="btn btn-default btn-primary" name="save" value="Lưu">
-				<a href=<%=request.getContextPath() + "animal-management" %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy"></a>
+				<a href=<%=request.getContextPath() + "/animal-management" %>><input style="margin-top: 10px;" type="button" class="btn btn-default btn-primary" name="cancel" value="Hủy"></a>
 			</div>
 		</fieldset>
 	</form>
@@ -254,7 +187,7 @@ body {
 							jQuery.validator.setDefaults({
 								success : "valid"
 							});
-							$("#frm-changepass")
+							$("#frm-edit-animal")
 									.validate(
 											{
 												ignore : [],
@@ -262,49 +195,30 @@ body {
 												rules : {
 													animal_id : {
 														required : true,
+														maxlenght: 10,
 													},
 													animal_name : {
 														required : true,
-														minlength : 6,
+														maxlenght: 30,
 													},
-													weight : {
-														required : true,
-
-													},
-													height : {
-														required : true,
-
-													},
-													health_status : {
-														required : true,
-
-													},
-													description : {
-														required : true,
-
+													gender: {
+														required: true,
 													},
 												},
 												messages : {
 													animal_id : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
+														required : "<span style='color:red;'>Vui lòng nhập mã động vật</span>",
+														maxlength : "<span style='color:red;'>Mã động vật không thể hơn 10 ký tự</span>",
 													},
 													animal_name : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
+														required : "<span style='color:red;'>Vui lòng nhập tên động vật</span>",
+														maxlength : "<span style='color:red;'>Tên động vật không thể hơn 30 ký tự</span>",
 													},
-													weight : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
-													},
-													height : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
-													},
-													health_status : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
-													},
-													description : {
-														required : "<span style='color:red;'>Không được bỏ trống</span>",
-													},
+													gender: {
+														required : "<p style='color:red;'>Vui lòng chọn giới tính</p>",
+													}
 												}
-											});
+							});
 						});
 	</script>
 </body>

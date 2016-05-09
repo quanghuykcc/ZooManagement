@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Cell;
 import model.Region;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -41,7 +42,12 @@ public class CellJsonServlet extends HttpServlet {
         String regionID = request.getParameter("regionID");
         JSONObject cell_json = new JSONObject();
         for (Cell cell : CellDAO.getCellByRegion(regionID)) {
-            cell_json.put(cell.getCellID(), cell.getCellID());
+            try {
+				cell_json.put(cell.getCellID(), cell.getCellID());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

@@ -9,7 +9,7 @@ public class ConnectDbLib {
 	private String db = "zoo_management";
 	private String url;
 	private String user = "root";
-	private String password = "vietha23";
+	private String password = "";
 	Connection connection;
 	public ConnectDbLib(){
 		this.url= "jdbc:mysql://localhost:3306/"+db+"?useUnicode=true&characterEncoding=UTF8";

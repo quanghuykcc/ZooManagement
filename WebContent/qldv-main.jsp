@@ -1,10 +1,7 @@
-<%@page import="model.Species"%>
-<%@page import="model.Cell"%>
-<%@page import="model.Region"%>
 <%@page import="model.Animal"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -27,6 +24,9 @@
     }
     #add-btn {
         float: right;
+    }
+    li{
+    	margin-top: 10px;
     }
   </style>
   
@@ -90,17 +90,22 @@
   		
   	});
   </script>
-  
-  
   <title>Quản lý động vật</title>
 </head>
 <body>
+	<%
+		String key_search =(String) request.getAttribute("key_search");
+		
+	%>
   <div>
     <div id="head-navi-bar">
 
-    <jsp:include page= "/inc/head-navi-bar.jsp" />
+      <div style="margin-left: 30px;"><h3>TRANG CHỦ > QUẢN LÝ ĐỘNG VẬT > ĐỘNG VẬT</h3></div>
+      <div>
+
+      </div>
     </div>
-    <div id="navitication" class="col-md-4">
+    <div id="navitication" class="col-md-3">
       <ul>
         <li><a href="#">Quản lý động vật</a>
           <ul>
@@ -109,7 +114,7 @@
             <li><a href=<%=request.getContextPath() + "/animal-management" %>>Động vật</a></li>
           </ul>
         </li>
-        <li><a href="<%=request.getContextPath()%>/employee-management">Quản lý nhân viên</a>
+        <li><a href="<%=request.getContextPath()%>/info-user">Quản lý nhân viên</a>
         </li>
         <li><a href="#">Quản lý thức ăn</a>
         </li>
@@ -119,43 +124,20 @@
     <div id="animal-filter" class="col-md-8">
       <div id="filter">
         <div id="form-filter">
-        <form class="form-inline" role="form" method="post">
+        <form class="form-inline" role="form" action=<%=request.getContextPath() + "/search" %> method="post">
             <div class="from-group">
-                <select name="region" id="region_select" class="form-control">
-                <% 
-                	ArrayList<Region> regionList = (ArrayList<Region>) request.getAttribute("region_list");
-                	for (Region region : regionList) {
-                		
-                %>
-                	<option value=<%=region.getRegionID() %>><%=region.getRegionName() %></option>
-                <%
-                	}
-                %>
+                <select name="region" class="form-control">
+                  <option disabled="disable">Chọn khu vực</option>
+                  <option>A</option>
                 </select>
-                <select name="cell" id="cell_select" class="form-control">
-                  	<% 
-                	ArrayList<Cell> cellList = (ArrayList<Cell>) request.getAttribute("cell_list");
-                	for (Cell cell : cellList) {
-                		
-               		 %>
-                	<option value=<%=cell.getCellID() %>><%=cell.getCellID() %></option>
-                	<%
-                	}
-                	%>
+                <select name="cell" class="form-control">
+                  <option disabled="disable" selected="selected">Chọn chuồng</option>
                 </select>
-                <select name="species" id="species_select" class="form-control">
-					<% 
-                	ArrayList<Species> speciesList = (ArrayList<Species>) request.getAttribute("species_list");
-                	for (Species species : speciesList) {
-                		
-               		 %>
-                	<option value=<%=species.getSpeciesID() %>><%=species.getSpeciesName() %></option>
-                	<%
-                	}
-                	%>
+                <select name="species" class="form-control">
+                  <option disabled="disable" selected="selected">Chọn loài</option>
                 </select>
-                <input type="text" name="animal_id" id="animal_id_txt" class="form-control">
-                <input type="button" class="btn btn-info" id="id_animal_search" value="Tìm kiếm"></input>
+                <input type="text" name="animal_id" class="form-control" value="<%=(key_search==null)? "":key_search%>">
+                <input type="submit" class="btn btn-info" name="search" value="Tìm kiếm"></input>
             </div>
         </form>
         </div>
@@ -166,7 +148,6 @@
         </div>
       </div>
       <br>
-      <div id="table_animal">
       <table id="animal-info" class="table table-striped table-responsive" style="width: 100%">
         <tr>
           <th>Mã ĐV</th>
@@ -179,6 +160,7 @@
         </tr>
         <%
         	ArrayList<Animal> animalList = (ArrayList<Animal>) request.getAttribute("animal_list");
+        	if(animalList.size()>0){
         	for (Animal animal : animalList) {
         %>
         <tr>
@@ -188,13 +170,16 @@
           <td><%=animal.getRegionID()%></td>
           <td><%=animal.getCellID()%></td>
           <td><%=animal.getHealthStatus()%></td>
-          <td><a href=<%=request.getContextPath() + "/update_animal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
+          <td><a href=<%=request.getContextPath() + "/UpdateAnimal?animal_id=" + animal.getAnimalID() %>><button class="btn btn-info">Cập nhật</button></a></td>
         </tr>
         <%
-        	}
+        	}}else{
         %>
+        	<tr>
+        		<td colspan="7" style="text-align: center; color:red;">Không tìm thấy động vật nào thỏa mãn điều kiện trên</td>
+        	</tr>
+        <%} %>
       </table>
-      </div>
     </div>
   </div>
 </body>

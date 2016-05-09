@@ -45,7 +45,7 @@ public class CheckLogin extends HttpServlet {
 			User user =userDAO.checkUserLogin(username, password);
 			session.setAttribute("sUser", user);
 			if(user!=null){
-				response.sendRedirect(request.getContextPath()+"/animal-management");
+				response.sendRedirect(request.getContextPath()+"/ShowInfUser");
 			}else{
 				response.sendRedirect(request.getContextPath()+"/dang-nhap.jsp?msg=0");
 			}

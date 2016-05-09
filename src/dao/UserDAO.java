@@ -85,4 +85,29 @@ public class UserDAO {
 		}
 	}
 	
+	public User getEmployeeByID(String id){
+		User user = null;
+		con = ConLib.getConnectMySQL();
+		String sql = "SELECT * FROM employee WHERE EmployeeID LIKE ? LIMIT 1";
+		try{
+			pst = con.prepareStatement(sql);
+			pst.setString(1, id);
+			rs =pst.executeQuery();
+			if(rs.next()){
+				user = new User("", "", 0, "", rs.getString("EmployeeID"), rs.getString("EmployeeName"), rs.getInt("Gender"), rs.getString("Birthday"), rs.getString("Phone"), rs.getString("Address"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try{
+				con.close();
+				pst.close();
+				ConLib.closeConnect();
+			}catch(Exception e){
+				
+			}
+		}
+		return user;
+	}
+	
 }

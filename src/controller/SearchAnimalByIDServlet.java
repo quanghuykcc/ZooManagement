@@ -30,7 +30,7 @@ public class SearchAnimalByIDServlet extends HttpServlet {
 		String animalId = request.getParameter("animal_id");	
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
-		String cellId = request.getParameter("cell_id");
+		request.setAttribute("key_search", animalId);
 		ArrayList<Animal> animalList = new AnimalBO().searchAnimalById(animalId);
 		request.setAttribute("animal_list", animalList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("animal_table.jsp");
